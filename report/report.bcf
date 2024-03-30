@@ -2346,10 +2346,12 @@
   <bcf:section number="0">
     <bcf:citekey order="1">geeksforgeeks-thread-pools-java</bcf:citekey>
     <bcf:citekey order="2">oracle-concurrent-docs</bcf:citekey>
-    <bcf:citekey order="3">apache-maven-pom</bcf:citekey>
-    <bcf:citekey order="4">geeksforgeeks-thread-pools-java</bcf:citekey>
-    <bcf:citekey order="5">oracle-concurrent-docs</bcf:citekey>
-    <bcf:citekey order="6">apache-maven-pom</bcf:citekey>
+    <bcf:citekey order="3">vogella-mysql</bcf:citekey>
+    <bcf:citekey order="4">apache-maven-pom</bcf:citekey>
+    <bcf:citekey order="5">geeksforgeeks-thread-pools-java</bcf:citekey>
+    <bcf:citekey order="6">oracle-concurrent-docs</bcf:citekey>
+    <bcf:citekey order="7">vogella-mysql</bcf:citekey>
+    <bcf:citekey order="8">apache-maven-pom</bcf:citekey>
   </bcf:section>
   <!-- SORTING TEMPLATES -->
   <bcf:sortingtemplate name="nty">

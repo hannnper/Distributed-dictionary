@@ -19,6 +19,37 @@
 
 \refsection{0}
   \datalist[entry]{nty/global//global/global}
+    \entry{vogella-mysql}{online}{}
+      \name{author}{1}{}{%
+        {{hash=e5954faa84774c09a680cd61377c88d2}{%
+           family={Blog},
+           familyi={B\bibinitperiod},
+           given={Vogella},
+           giveni={V\bibinitperiod}}}%
+      }
+      \strng{namehash}{e5954faa84774c09a680cd61377c88d2}
+      \strng{fullhash}{e5954faa84774c09a680cd61377c88d2}
+      \strng{bibnamehash}{e5954faa84774c09a680cd61377c88d2}
+      \strng{authorbibnamehash}{e5954faa84774c09a680cd61377c88d2}
+      \strng{authornamehash}{e5954faa84774c09a680cd61377c88d2}
+      \strng{authorfullhash}{e5954faa84774c09a680cd61377c88d2}
+      \field{sortinit}{B}
+      \field{sortinithash}{d7095fff47cda75ca2589920aae98399}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{title}{MySQL and Java JDBC - Tutorial}
+      \field{urlday}{30}
+      \field{urlmonth}{3}
+      \field{urlyear}{2024}
+      \field{year}{2024}
+      \field{urldateera}{ce}
+      \verb{urlraw}
+      \verb https://www.vogella.com/tutorials/MySQLJava/article.html
+      \endverb
+      \verb{url}
+      \verb https://www.vogella.com/tutorials/MySQLJava/article.html
+      \endverb
+    \endentry
     \entry{geeksforgeeks-thread-pools-java}{online}{}
       \name{author}{1}{}{%
         {{hash=f1e069787ece74531d112559945c6871}{%
