@@ -2,7 +2,7 @@ package dictionary;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
-import java.sql.SQLException;
+//import java.sql.SQLException;
 import java.sql.Statement;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -38,6 +38,10 @@ public class MySqlHandler {
             while (resultSet.next()) {
                 meanings.add(resultSet.getString("meaning"));
             }
+
+            // Close the connections
+            close_mysql();
+
             return meanings;
         } catch (Exception e) {
             e.printStackTrace();
@@ -57,6 +61,9 @@ public class MySqlHandler {
             preparedStatement.setString(1, word);
             preparedStatement.setString(2, meaning);
             preparedStatement.executeUpdate();
+
+            close_mysql();
+
             return true;
         } catch (Exception e) {
             e.printStackTrace();
@@ -75,6 +82,7 @@ public class MySqlHandler {
             preparedStatement = connection.prepareStatement("DELETE FROM dictionary WHERE word = ?");
             preparedStatement.setString(1, word);
             preparedStatement.executeUpdate();
+            close_mysql();
             return true;
         } catch (Exception e) {
             e.printStackTrace();
@@ -94,10 +102,33 @@ public class MySqlHandler {
             preparedStatement.setString(1, word);
             preparedStatement.setString(2, meaning);
             preparedStatement.executeUpdate();
+            close_mysql();
             return true;
         } catch (Exception e) {
             e.printStackTrace();
             return false;
+        }
+    }
+
+    private void close_mysql() {
+        try {
+            if (resultSet != null) {
+                resultSet.close();
+            }
+
+            if (statement != null) {
+                statement.close();
+            }
+
+            if (preparedStatement != null) {
+                preparedStatement.close();
+            }
+
+            if (connection != null) {
+                connection.close();
+            }
+        } catch (Exception e) {
+            System.out.println("Error in closing mySQL connection: " + e);
         }
     }
 }
