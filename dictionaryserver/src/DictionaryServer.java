@@ -24,17 +24,15 @@ public class DictionaryServer {
             executor.setRejectedExecutionHandler(new ThreadPoolExecutor.AbortPolicy());
 
             while (true) {
-                listener.accept();
+                Socket clientSocket = listener.accept();
+                System.out.println("Accepted connection from " + clientSocket.getRemoteSocketAddress());
             }
 
             executor.shutdown();
+            listener.close();
 
         } catch (Exception e) {
             System.out.println("Error: " + e);
         }
     }
-}
-
-public class WorkerRunnable implements Runnable {
-
 }
