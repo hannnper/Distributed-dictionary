@@ -18,21 +18,33 @@ public class DictionaryClient {
 			DataInputStream input = new DataInputStream(socket.getInputStream());
 			
 		    DataOutputStream output = new DataOutputStream(socket.getOutputStream());
-		    String sendData ="Hello server!";
+
+            Message msg = new Message();
+            msg.setCommand(Message.QUERY);
+            msg.setWord("hello");
+		    String sendData = msg.toJson();
 
             output.writeUTF(sendData);
             System.out.println("Sent: " + sendData);
             output.flush();
 
             boolean flag = true;
+            String message = "";
 		    while(flag)
 		    {
 		    	if(input.available()>0) {
-		    		String message = input.readUTF();
-		    		System.out.println(message);
+		    		message += input.readUTF();
 		    		flag = false;
 		    	}
 		    }
+            System.out.println("Received: " + message);
+
+            // Interpret Message
+            Message inMsg = Message.fromJson(message);
+            System.out.println("Command: " + inMsg.getCommand());
+            System.out.println("Word: " + inMsg.getWord());
+            System.out.println("Meanings: " + inMsg.getMeanings());
+
         } catch (Exception e) {
             System.out.println("Error: " + e);
         }
