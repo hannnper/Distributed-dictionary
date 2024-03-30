@@ -1,4 +1,3 @@
-package dictionaryClient;
 import java.net.Socket;
 
 public class DictionaryClient {

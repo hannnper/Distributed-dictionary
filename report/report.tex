@@ -1,0 +1,39 @@
+\documentclass{article}
+\usepackage{geometry}
+\usepackage{graphicx}
+\usepackage{biblatex}
+
+\addbibresource{references.bib}
+
+\title{Dictionary Server Report}
+\author{Han Perry}
+\date{}
+
+\begin{document}
+
+\maketitle
+
+\section*{Introduction}
+
+\section*{Sockets and Threads}
+\subsection*{Architecture}
+Threadpool \cite{geeksforgeeks-thread-pools-java}.
+
+Cached Thread Pool
+
+    Description: A cached thread pool creates new threads as needed, but will reuse previously constructed threads when they are available. Idle threads are kept in the pool for a limited time before being terminated and removed.
+    Use Case: Suitable for applications that have many short-lived asynchronous tasks and demand lightweight concurrency or tasks with highly variable execution times.
+    Advantages: More flexible than a fixed thread pool, as it can efficiently handle an increased load by temporarily adding more threads.
+    Limitations: Potential for resource exhaustion if the task arrival rate exceeds the ability to process and complete tasks, especially if tasks are long-running.
+\section*{Concurrency}
+
+\section*{Error Handling}
+
+\section*{Excellence}
+
+\section*{Creativity}
+
+\section*{Conclusion}
+
+\printbibliography
+\end{document}
