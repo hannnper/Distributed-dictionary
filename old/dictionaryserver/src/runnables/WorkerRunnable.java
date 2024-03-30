@@ -20,11 +20,12 @@ public class WorkerRunnable implements Runnable {
             DataOutputStream output = new DataOutputStream(clientSocket.getOutputStream());
             
             // Process the input/output here
-
+            String message = input.readUTF();
             System.out.println("Accepted connection from " + clientSocket.getRemoteSocketAddress());
-            System.out.println("Received: " + input.readUTF());
+            System.out.println("Received: " + message);
             output.writeUTF("Hello client! This is server speaking! 🥰");
 
+            
             // Close the streams
             output.close();
             input.close();
