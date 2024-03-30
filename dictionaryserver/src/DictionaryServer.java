@@ -3,6 +3,7 @@ import java.util.concurrent.LinkedBlockingQueue;
 import java.util.concurrent.ThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
 import java.net.ServerSocket;
+import runnables.WorkerRunnable;
 
 public class DictionaryServer {
     public static void main(String[] args) throws Exception {
@@ -14,22 +15,27 @@ public class DictionaryServer {
             
             // Create a thread pool to handle incoming requests
             // TODO: check what errors are thrown and handle them
-            ThreadPoolExecutor executor = new ThreadPoolExecutor(
+            ThreadPoolExecutor threadPool = new ThreadPoolExecutor(
                 5, // core thread pool size (always running threads)
                 20, // maximum thread pool size
                 60L, // time for idle threads to be kept alive
                 TimeUnit.SECONDS, // time unit for the keep alive time
                 new LinkedBlockingQueue<Runnable>() // work queue
             );
-            executor.setRejectedExecutionHandler(new ThreadPoolExecutor.AbortPolicy());
+            threadPool.setRejectedExecutionHandler(new ThreadPoolExecutor.AbortPolicy());
 
             while (true) {
                 Socket clientSocket = listener.accept();
                 System.out.println("Accepted connection from " + clientSocket.getRemoteSocketAddress());
+
+                // Create a new worker runnable and submit it to the executor
+                WorkerRunnable worker = new WorkerRunnable(clientSocket);
+                threadPool.execute(worker);
             }
 
-            executor.shutdown();
-            listener.close();
+            // TODO: create and catch exception that can be thrown when admin sends a shutdown command
+            // threadPool.shutdown();
+            // listener.close();
 
         } catch (Exception e) {
             System.out.println("Error: " + e);
