@@ -2,10 +2,10 @@ package dictionary;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
-//import java.sql.SQLException;
 import java.sql.Statement;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 
 public class MySqlHandler {
@@ -21,7 +21,7 @@ public class MySqlHandler {
     private PreparedStatement preparedStatement;
     private ResultSet resultSet;
 
-    public ArrayList<String> lookupWord(String word) {
+    public Boolean lookupWord(Message message, Message response) {
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");
 
@@ -30,7 +30,7 @@ public class MySqlHandler {
             
             // Prepare and execute the SQL query
             preparedStatement = connection.prepareStatement("SELECT * FROM dictionary WHERE word = ?");
-            preparedStatement.setString(1, word);
+            preparedStatement.setString(1, message.getWord());
             resultSet = preparedStatement.executeQuery();
 
             // Process the results
@@ -39,41 +39,90 @@ public class MySqlHandler {
                 meanings.add(resultSet.getString("meaning"));
             }
 
+            // check if the word was found
+            if (meanings.size() == 0) {
+                response.setError(Message.ERROR_WORD_NOT_FOUND_MSG);
+                response.setSuccess(false);
+            } else {
+                response.setSuccess(true);
+                response.setMeanings(meanings);
+            }
+
             // Close the connections
             close_mysql();
 
-            return meanings;
-        } catch (Exception e) {
-            e.printStackTrace();
-            return null;
+            return response.getSuccess();
         }
-    }
-
-    public boolean addWord(String word, String meaning) {
-        try {
-            Class.forName("com.mysql.cj.jdbc.Driver");
-
-            // Connect to the database
-            connection = DriverManager.getConnection(MYSQL_URL, MYSQL_USERNAME, MYSQL_PASSWORD);
-            
-            // Prepare and execute the SQL query
-            preparedStatement = connection.prepareStatement("INSERT INTO dictionary (word, meaning) VALUES (?, ?)");
-            preparedStatement.setString(1, word);
-            preparedStatement.setString(2, meaning);
-            preparedStatement.executeUpdate();
-
-            close_mysql();
-
-            return true;
-        } catch (Exception e) {
+        catch (SQLException e) {
+            // This includes SQLTimeoutException
+            e.printStackTrace();
+            response.setError(Message.ERROR_DATABASE_FAILURE_MSG);
+            response.setSuccess(false);
+            return false;
+        }
+        catch (Exception e) {
+            // Includes: LinkageError, ExceptionInInitializerError, ClassNotFoundException
+            // which may occur if driver is not found or loaded
+            response.setError(Message.ERROR_DATABASE_FAILURE_MSG);
+            response.setSuccess(false);
             e.printStackTrace();
             return false;
         }
     }
 
-    public boolean removeWord(String word) {
+    public boolean addWord(Message message, Message response) {
+        // used for both add word and update but need to check command validity first
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");
+
+            String word = message.getWord();
+            String newMeaning = message.getMeaning();
+
+            // Connect to the database
+            connection = DriverManager.getConnection(MYSQL_URL, MYSQL_USERNAME, MYSQL_PASSWORD);
+
+            // Prepare and execute the SQL query
+            preparedStatement = connection.prepareStatement("INSERT INTO dictionary (word, meaning) VALUES (?, ?)");
+            preparedStatement.setString(1, word);
+            preparedStatement.setString(2, newMeaning);
+            preparedStatement.executeUpdate();
+
+            close_mysql();
+
+            // operation was successful so add meaning to response for client display
+            response.setSuccess(true);
+            response.addMeaning(newMeaning);
+            return true;
+        } 
+        catch (IndexOutOfBoundsException e) {
+            // meaning should be single element in array
+            response.setError(Message.ERROR_MISSING_MEANING_MSG);
+            response.setSuccess(false);
+            e.printStackTrace();
+            return false;
+        }
+        catch (SQLException e) {
+            // This includes SQLTimeoutException
+            e.printStackTrace();
+            response.setError(Message.ERROR_DATABASE_FAILURE_MSG);
+            response.setSuccess(false);
+            return false;
+        }
+        catch (Exception e) {
+            // Includes: LinkageError, ExceptionInInitializerError, ClassNotFoundException
+            // which may occur if driver is not found or loaded
+            response.setError(Message.ERROR_DATABASE_FAILURE_MSG);
+            response.setSuccess(false);
+            e.printStackTrace();
+            return false;
+        }
+    }
+
+    public boolean removeWord(Message message, Message response) {
+        // this function is idempotent, checking for word being in the database happens elsewhere
+        try {
+            Class.forName("com.mysql.cj.jdbc.Driver");
+            String word = message.getWord();
 
             // Connect to the database
             connection = DriverManager.getConnection(MYSQL_URL, MYSQL_USERNAME, MYSQL_PASSWORD);
@@ -83,16 +132,35 @@ public class MySqlHandler {
             preparedStatement.setString(1, word);
             preparedStatement.executeUpdate();
             close_mysql();
+
+            // success
+            response.setSuccess(true);
+
             return true;
-        } catch (Exception e) {
+        }
+        catch (SQLException e) {
+            // This includes SQLTimeoutException
+            e.printStackTrace();
+            response.setError(Message.ERROR_DATABASE_FAILURE_MSG);
+            response.setSuccess(false);
+            return false;
+        }
+        catch (Exception e) {
+            // Includes: LinkageError, ExceptionInInitializerError, ClassNotFoundException
+            // which may occur if driver is not found or loaded
+            response.setError(Message.ERROR_DATABASE_FAILURE_MSG);
+            response.setSuccess(false);
             e.printStackTrace();
             return false;
         }
     }
 
-    public boolean removeMeaning(String word, String meaning) {
+    public boolean removeMeaning(Message message, Message response) {
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");
+
+            String word = message.getWord();
+            String meaning = message.getMeaning();
 
             // Connect to the database
             connection = DriverManager.getConnection(MYSQL_URL, MYSQL_USERNAME, MYSQL_PASSWORD);
@@ -103,8 +171,25 @@ public class MySqlHandler {
             preparedStatement.setString(2, meaning);
             preparedStatement.executeUpdate();
             close_mysql();
+            
+            // success and remove meaning from response
+            response.setSuccess(true);
+            response.removeMeaning(meaning);
+
             return true;
-        } catch (Exception e) {
+        }
+        catch (SQLException e) {
+            // This includes SQLTimeoutException
+            e.printStackTrace();
+            response.setError(Message.ERROR_DATABASE_FAILURE_MSG);
+            response.setSuccess(false);
+            return false;
+        }
+        catch (Exception e) {
+            // Includes: LinkageError, ExceptionInInitializerError, ClassNotFoundException
+            // which may occur if driver is not found or loaded
+            response.setError(Message.ERROR_DATABASE_FAILURE_MSG);
+            response.setSuccess(false);
             e.printStackTrace();
             return false;
         }
@@ -127,7 +212,8 @@ public class MySqlHandler {
             if (connection != null) {
                 connection.close();
             }
-        } catch (Exception e) {
+        }
+        catch (Exception e) {
             System.out.println("Error in closing mySQL connection: " + e);
         }
     }

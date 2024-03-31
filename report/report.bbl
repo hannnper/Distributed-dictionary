@@ -19,6 +19,35 @@
 
 \refsection{0}
   \datalist[entry]{nty/global//global/global}
+    \entry{apache-log4j}{online}{}
+      \name{author}{1}{}{%
+        {{hash=e9713ae04a02a810d6f33dd956f42794}{%
+           family={Apache},
+           familyi={A\bibinitperiod}}}%
+      }
+      \strng{namehash}{e9713ae04a02a810d6f33dd956f42794}
+      \strng{fullhash}{e9713ae04a02a810d6f33dd956f42794}
+      \strng{bibnamehash}{e9713ae04a02a810d6f33dd956f42794}
+      \strng{authorbibnamehash}{e9713ae04a02a810d6f33dd956f42794}
+      \strng{authornamehash}{e9713ae04a02a810d6f33dd956f42794}
+      \strng{authorfullhash}{e9713ae04a02a810d6f33dd956f42794}
+      \field{sortinit}{A}
+      \field{sortinithash}{2f401846e2029bad6b3ecc16d50031e2}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{title}{Apache Log4j}
+      \field{urlday}{6}
+      \field{urlmonth}{3}
+      \field{urlyear}{2024}
+      \field{year}{2024}
+      \field{urldateera}{ce}
+      \verb{urlraw}
+      \verb https://logging.apache.org/log4j/2.x/
+      \endverb
+      \verb{url}
+      \verb https://logging.apache.org/log4j/2.x/
+      \endverb
+    \endentry
     \entry{vogella-mysql}{online}{}
       \name{author}{1}{}{%
         {{hash=e5954faa84774c09a680cd61377c88d2}{%
