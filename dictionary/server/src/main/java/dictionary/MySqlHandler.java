@@ -2,7 +2,6 @@ package dictionary;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
-import java.sql.Statement;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -17,7 +16,6 @@ public class MySqlHandler {
 
     // Database connection
     private Connection connection;
-    private Statement statement;
     private PreparedStatement preparedStatement;
     private ResultSet resultSet;
 
@@ -199,10 +197,6 @@ public class MySqlHandler {
         try {
             if (resultSet != null) {
                 resultSet.close();
-            }
-
-            if (statement != null) {
-                statement.close();
             }
 
             if (preparedStatement != null) {
