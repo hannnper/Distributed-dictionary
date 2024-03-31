@@ -59,10 +59,12 @@ public class WorkerRunnable implements Runnable {
 
     private Message handleQuery(Message message) {
         String word = message.getWord();
-        ArrayList<String> meanings = new ArrayList<String>();
+        MySqlHandler db = new MySqlHandler();
 
-        // TODO: Implement lookup in the dictionary
+        // lookup word in the dictionary database
+        ArrayList<String> meanings = db.lookupWord(word);
 
+        // prepare the response
         Message response = new Message();
         response.setCommand(Message.QUERY_RESPONSE);
         response.setWord(word);
