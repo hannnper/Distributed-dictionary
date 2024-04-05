@@ -2,17 +2,12 @@ package dictionary;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.net.Socket;
-import javafx.application.Application;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
-import javafx.stage.Stage;
-import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
+import java.awt.EventQueue;
+import dictionary.ClientGui;
 
-public class DictionaryClient extends Application {
-    public static void main(String[] args) throws Exception {
-        launch(args);
+public class DictionaryClient {
+    public static void main(String[] args) {
+
         System.out.println("Welcome to the dictionary client!");
 
         // TODO: get the host and port from the command line
@@ -26,6 +21,19 @@ public class DictionaryClient extends Application {
 			DataInputStream input = new DataInputStream(socket.getInputStream());
 			
 		    DataOutputStream output = new DataOutputStream(socket.getOutputStream());
+
+            // Start the GUI
+            EventQueue.invokeLater(new Runnable() {
+                public void run() {
+                    try {
+                        ClientGui window = new ClientGui();
+                        window.frame.setVisible(true);
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                }
+            });
+
 
             Message msg = new Message();
             msg.setCommand(Message.QUERY);
@@ -59,17 +67,4 @@ public class DictionaryClient extends Application {
 
     }
 
-    @Override
-    public void start(Stage primaryStage)  {
-        try {
-            // Load the FXML file
-            Parent root = FXMLLoader.load(getClass().getResource("client.fxml"));
-            primaryStage.setTitle("Dictionary Client");
-            primaryStage.setScene(new Scene(root, 300, 275));
-            primaryStage.show();
-        } catch (Exception e) {
-            // TODO: handle exception
-            e.printStackTrace();
-        }
-    }
 }
