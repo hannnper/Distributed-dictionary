@@ -38,14 +38,13 @@ public class WorkerRunnable implements Runnable {
             logger.info("IP: {}, command: {}, word: {}", ipSock, message.getCommand(), message.getWord());
 
             // check message for errors
-            if (!message.isValid()) {
+            if (!message.validityCheck()) {
                 // errors are passed back in the response
                 response = message.makeResponse();
                 response.setSuccess(false);
-                return;
             }
             // Handle the command
-            if (message.getCommand().equals(Message.QUERY)) {
+            else if (message.getCommand().equals(Message.QUERY)) {
                 response = handleQuery(message);
             }
             else if (message.getCommand().equals(Message.ADD)) {
@@ -102,10 +101,11 @@ public class WorkerRunnable implements Runnable {
 
         // check if word is in database first
         db.lookupWord(message, response);
-        if (response.getError().equals(Message.ERROR_WORD_NOT_FOUND_MSG)) {
+        String error = response.getError();
+        if (error != null && error.equals(Message.ERROR_WORD_NOT_FOUND_MSG)) {
             // word not in database so safe to add
             // reset error before attempting to add new word-meaning pair
-            response.setError("");
+            response.setError(null);
             // add word to the dictionary database
             db.addWord(message, response);
         }
@@ -117,7 +117,7 @@ public class WorkerRunnable implements Runnable {
         else {
             // this occurs if there was some other failure (e.g. database)
             // leave the existing error message
-            ;
+            response.setSuccess(false);;
         }
         return response;
     }

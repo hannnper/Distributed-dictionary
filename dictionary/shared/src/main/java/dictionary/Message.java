@@ -42,11 +42,11 @@ public class Message {
     final static String ERROR_WORD_NOT_FOUND_MSG = "Word not found";
     final static String ERROR_WORD_EXISTS_MSG = "Word already exists";
     final static String ERROR_MEANING_EXISTS_MSG = "Meaning already exists";
-    final static String ERROR_MISSING_MEANING_MSG = "Missing meaning";
-    final static String ERROR_MISSING_WORD_MSG = "Missing word";
-    final static String ERROR_MISSING_COMMAND_MSG = "Missing command";
+    final static String ERROR_MISSING_MEANING_MSG = "Meaning field cannot be empty";
+    final static String ERROR_MISSING_WORD_MSG = "Word field cannot be empty";
+    final static String ERROR_MISSING_COMMAND_MSG = "Command field cannot be empty";
     final static String ERROR_DATABASE_FAILURE_MSG = "Database failure";
-    final static String ERROR_MULTIPLE_MEANING_MSG = "Multiple meanings sent";
+    final static String ERROR_MULTIPLE_MEANING_MSG = "Multiple meanings sent, only one is expected";
     final static String ERROR_INVALID_MEANING_MSG = "Invalid meaning. Must be at least 1 and less than 1000 characters";
     final static String ERROR_INVALID_WORD_MSG = "Invalid word. Must be at least 1 and less than 100 characters";
     final static String ERROR_MEANING_NOT_FOUND_MSG = "Meaning not found";
@@ -68,7 +68,6 @@ public class Message {
         this.meanings = new ArrayList<String>();
         this.error = null;
         this.success = false;
-        this.valid = false;
     }
 
     // Convert from JSON string to a message object
@@ -96,7 +95,7 @@ public class Message {
         }
     }
 
-    public Boolean isValid() {
+    public Boolean validityCheck() {
         // at the point this is called the success will be false
         if (this.command == null || this.command.isEmpty()) {
             this.error = ERROR_MISSING_COMMAND_MSG;
@@ -133,6 +132,44 @@ public class Message {
         response.setSuccess(this.success);
         response.setError(this.error);
         return response;
+    }
+
+    public static Message makeQuery(String word) {
+        Message message = new Message();
+        message.setCommand(Message.QUERY);
+        message.setWord(word);
+        return message;
+    }
+
+    public static Message makeAdd(String word, String meaning) {
+        Message message = new Message();
+        message.setCommand(Message.ADD);
+        message.setWord(word);
+        message.setMeaning(meaning);
+        return message;
+    }
+
+    public static Message makeRemoveWord(String word) {
+        Message message = new Message();
+        message.setCommand(Message.REMOVE_WORD);
+        message.setWord(word);
+        return message;
+    }
+
+    public static Message makeRemoveMeaning(String word, String meaning) {
+        Message message = new Message();
+        message.setCommand(Message.REMOVE_MEANING);
+        message.setWord(word);
+        message.setMeaning(meaning);
+        return message;
+    }
+
+    public static Message makeUpdate(String word, String meaning) {
+        Message message = new Message();
+        message.setCommand(Message.UPDATE);
+        message.setWord(word);
+        message.setMeaning(meaning);
+        return message;
     }
     
     // Getters and setters
