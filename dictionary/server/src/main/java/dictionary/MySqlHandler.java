@@ -1,3 +1,6 @@
+// Dictionary Server SQL handler class
+// Han Perry 693878
+
 package dictionary;
 
 import java.sql.Connection;
@@ -173,6 +176,48 @@ public class MySqlHandler {
             // success and remove meaning from response
             response.setSuccess(true);
             response.removeMeaning(meaning);
+
+            return true;
+        }
+        catch (SQLException e) {
+            // This includes SQLTimeoutException
+            e.printStackTrace();
+            response.setError(Message.ERROR_DATABASE_FAILURE_MSG);
+            response.setSuccess(false);
+            return false;
+        }
+        catch (Exception e) {
+            // Includes: LinkageError, ExceptionInInitializerError, ClassNotFoundException
+            // which may occur if driver is not found or loaded
+            response.setError(Message.ERROR_DATABASE_FAILURE_MSG);
+            response.setSuccess(false);
+            e.printStackTrace();
+            return false;
+        }
+    }
+
+    public boolean editMeaning(Message message, Message response) {
+        try {
+            Class.forName("com.mysql.cj.jdbc.Driver");
+
+            String word = message.getWord();
+            String oldMeaning = message.getOldMeaning();
+            String newMeaning = message.getMeaning();
+
+            // Connect to the database
+            connection = DriverManager.getConnection(MYSQL_URL, MYSQL_USERNAME, MYSQL_PASSWORD);
+            
+            // Prepare and execute the SQL query
+            preparedStatement = connection.prepareStatement("UPDATE dictionary SET meaning = ? WHERE word = ? AND meaning = ?");
+            preparedStatement.setString(1, newMeaning);
+            preparedStatement.setString(2, word);
+            preparedStatement.setString(3, oldMeaning);
+            preparedStatement.executeUpdate();
+            close_mysql();
+
+            // success and update meaning in response
+            response.setSuccess(true);
+            response.changeMeaning(oldMeaning, newMeaning);
 
             return true;
         }

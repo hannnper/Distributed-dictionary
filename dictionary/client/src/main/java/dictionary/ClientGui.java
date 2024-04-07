@@ -1,25 +1,30 @@
+// Dictionary Client GUI
+// Han Perry 693878
 package dictionary;
 
+import java.awt.Component;
+import java.awt.FlowLayout;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
-
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
-import javax.swing.JTextArea;
+import javax.swing.JScrollPane;
 import javax.swing.JTextField;
-import javax.swing.JTable;
+import javax.swing.JList;
 
 public class ClientGui {
 
 	public JFrame frame;
 	public JTextField textField;
-	public JTextArea textArea;
+	//public JTextArea textArea;
+	public JPanel meaningsPane;
+	public JList<String> meaningsList;
 
     public ClientGui(String host, int port) {
         initialize(host, port);
@@ -38,62 +43,103 @@ public class ClientGui {
 		frame.getContentPane().setLayout(gridBagLayout);
 
 
-		
+		// word input
 		textField = new JTextField();
 		GridBagConstraints gbc_textField = new GridBagConstraints();
-		gbc_textField.insets = new Insets(0, 0, 5, 5);
-		gbc_textField.weightx = 0.5;
+		gbc_textField.insets = new Insets(5, 5, 5, 5);
 		gbc_textField.fill = GridBagConstraints.HORIZONTAL;
+		gbc_textField.weightx = 1.0;
 		gbc_textField.gridx = 0;
 		gbc_textField.gridy = 0;
 		frame.getContentPane().add(textField, gbc_textField);
 		textField.setColumns(10);
-		
 
 		// query button
 		JButton queryButton = new JButton("Query");
 		GridBagConstraints gbc_queryButton = new GridBagConstraints();
-		gbc_queryButton.insets = new Insets(0, 0, 5, 0);
-		gbc_queryButton.gridx = 2;
+		gbc_queryButton.insets = new Insets(5, 0, 5, 5);
+		gbc_queryButton.gridx = 1;
 		gbc_queryButton.gridy = 0;
 		frame.getContentPane().add(queryButton, gbc_queryButton);
 
 		// add button
 		JButton addButton = new JButton("Add");
 		GridBagConstraints gbc_addButton = new GridBagConstraints();
-		gbc_addButton.insets = new Insets(0, 0, 5, 0);
-		gbc_addButton.gridx = 3;
+		gbc_addButton.insets = new Insets(5, 0, 5, 5);
+		gbc_addButton.gridx = 2;
 		gbc_addButton.gridy = 0;
 		frame.getContentPane().add(addButton, gbc_addButton);
 
+		// bottom panel for buttons
+		JPanel bottomPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
+		GridBagConstraints gbc_bottomPanel = new GridBagConstraints();
+		gbc_bottomPanel.insets = new Insets(0, 0, 0, 0);
+		gbc_bottomPanel.fill = GridBagConstraints.BOTH;
+		gbc_bottomPanel.gridx = 0;
+		gbc_bottomPanel.gridy = 2;
+		gbc_bottomPanel.gridwidth = 3;
+		frame.getContentPane().add(bottomPanel, gbc_bottomPanel);
+
 		// update meaning button
-		JButton updateButton = new JButton("Update Meaning");
+		JButton updateButton = new JButton("Add Meaning");
 		GridBagConstraints gbc_updateButton = new GridBagConstraints();
-		gbc_updateButton.insets = new Insets(0, 0, 5, 0);
+		gbc_updateButton.insets = new Insets(0, 5, 5, 0);
+		gbc_updateButton.anchor = GridBagConstraints.WEST;
 		gbc_updateButton.gridx = 0;
-		gbc_updateButton.gridy = 2;
-		frame.getContentPane().add(updateButton, gbc_updateButton);
+		gbc_updateButton.gridy = 0;
+		bottomPanel.add(updateButton, gbc_updateButton);
+
+		// remove meaning button
+		JButton removeMeaningButton = new JButton("Remove Meaning");
+		GridBagConstraints gbc_removeMeaningButton = new GridBagConstraints();
+		gbc_removeMeaningButton.insets = new Insets(0, 5, 5, 0);
+		gbc_removeMeaningButton.anchor = GridBagConstraints.WEST;
+		gbc_removeMeaningButton.gridx = 1;
+		gbc_removeMeaningButton.gridy = 0;
+		bottomPanel.add(removeMeaningButton, gbc_removeMeaningButton);
+
+		// edit meaning button
+		JButton editMeaningButton = new JButton("Edit Meaning");
+		GridBagConstraints gbc_editMeaningButton = new GridBagConstraints();
+		gbc_editMeaningButton.insets = new Insets(0, 5, 5, 0);
+		gbc_editMeaningButton.anchor = GridBagConstraints.WEST;
+		gbc_editMeaningButton.gridx = 2;
+		gbc_editMeaningButton.gridy = 0;
+		bottomPanel.add(editMeaningButton, gbc_editMeaningButton);
 
 		// remove word button
 		JButton removeWordButton = new JButton("Remove Word");
 		GridBagConstraints gbc_removeWordButton = new GridBagConstraints();
-		gbc_removeWordButton.insets = new Insets(0, 0, 5, 0);
-		gbc_removeWordButton.gridx = 1;
-		gbc_removeWordButton.gridy = 2;
-		frame.getContentPane().add(removeWordButton, gbc_removeWordButton);
+		gbc_removeWordButton.insets = new Insets(0, 5, 5, 0);
+		gbc_removeWordButton.anchor = GridBagConstraints.WEST;
+		gbc_removeWordButton.gridx = 3;
+		gbc_removeWordButton.gridy = 0;
+		bottomPanel.add(removeWordButton, gbc_removeWordButton);
 
+		// meanings panel
+		JPanel meaningsPane = new JPanel();
+		// putting the meanings pane in a scroll pane
+		JScrollPane scrollPane = new JScrollPane(meaningsPane);
+		GridBagConstraints gbc_scrollPane = new GridBagConstraints();
+		gbc_scrollPane.fill = GridBagConstraints.BOTH;
+		gbc_scrollPane.weightx = 1.0;
+		gbc_scrollPane.weighty = 1.0;
+		gbc_scrollPane.gridx = 0;
+		gbc_scrollPane.gridy = 1;
+		gbc_scrollPane.gridwidth = 3;
+		frame.getContentPane().add(scrollPane, gbc_scrollPane);
 
-		//JButton removeMeaningButton = new JButton("Remove Meaning");
-
-		
-		textArea = new JTextArea();
-		GridBagConstraints gbc_textArea = new GridBagConstraints();
-		gbc_textArea.insets = new Insets(0, 0, 0, 5);
-		gbc_textArea.fill = GridBagConstraints.BOTH;
-		gbc_textArea.gridx = 0;
-		gbc_textArea.gridy = 1;
-		gbc_textArea.gridwidth = 4;
-		frame.getContentPane().add(textArea, gbc_textArea);
+		// adding the JList to the meanings pane
+		meaningsList = new JList<String>();
+		GridBagConstraints gbc_meaningsList = new GridBagConstraints();
+		gbc_meaningsList.fill = GridBagConstraints.BOTH;
+		gbc_meaningsList.weightx = 1.0;
+		gbc_meaningsList.weighty = 1.0;
+		gbc_meaningsList.gridx = 0;
+		gbc_meaningsList.gridy = 0;
+		gbc_meaningsList.anchor = GridBagConstraints.WEST;
+		meaningsList.setAlignmentX(Component.LEFT_ALIGNMENT);
+		meaningsPane.add(meaningsList, gbc_meaningsList);
 		
 		// pressing this button submits a query
 		queryButton.addActionListener(new ActionListener() {
@@ -266,14 +312,104 @@ public class ClientGui {
 			}
 		});
 
+		// pressing this button removes a meaning
+		removeMeaningButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				String word = textField.getText().strip();
+				// popup window to confirm deletion
+				String meaning = meaningsList.getSelectedValue();
+				if (meaning == null) {
+					JOptionPane.showMessageDialog(null, "Please select a meaning to remove", "Error", JOptionPane.ERROR_MESSAGE);
+					return;
+				}
+				int response = JOptionPane.showConfirmDialog(null, "Are you sure you want to remove the meaning \"" + meaning + "\"?", "Confirm", JOptionPane.YES_NO_OPTION);
+				if (response == JOptionPane.YES_OPTION) {
+					// User confirmed deletion
+					Message message = Message.makeRemoveMeaning(word, meaning);
+					
+					// Connect to the server
+					ClientConnect connection = new ClientConnect(host, port);
+
+					try {
+						String sendData = message.toJson();
+						connection.output.writeUTF(sendData);
+						connection.output.flush();
+					}
+					catch (Exception e) {
+						JOptionPane.showMessageDialog(null, "Unable to remove this meaning. Please Check the connection to dictionary server", "Error", JOptionPane.ERROR_MESSAGE);
+						e.printStackTrace();
+					}
+
+					// receive response
+					try {
+						String strMessage = connection.input.readUTF();
+						Message responseMessage = Message.fromJson(strMessage);
+						if (responseMessage.getSuccess()) {
+							JOptionPane.showMessageDialog(null, "Meaning removed successfully", "Success", JOptionPane.INFORMATION_MESSAGE);
+							displayMeanings(word, responseMessage.getMeanings());
+						}
+						else {
+							JOptionPane.showMessageDialog(null, responseMessage.getError(), "Error", JOptionPane.ERROR_MESSAGE);
+						}
+					}
+					catch (Exception e) {
+						JOptionPane.showMessageDialog(null, "Unable to remove this meaning. Please Check the connection to dictionary server", "Error", JOptionPane.ERROR_MESSAGE);
+						e.printStackTrace();
+					}
+				}
+			}
+		});
+
+		// pressing this button brings up a window to edit a meaning
+		editMeaningButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				String word = textField.getText().strip();
+				// popup window to edit the meaning
+				String meaning = meaningsList.getSelectedValue();
+				if (meaning == null) {
+					JOptionPane.showMessageDialog(null, "Please select a meaning to edit", "Error", JOptionPane.ERROR_MESSAGE);
+					return;
+				}
+				String response = JOptionPane.showInputDialog(null, "Enter new meaning for \"" + word + "\":", "Input", JOptionPane.QUESTION_MESSAGE, null, null, meaning).toString();
+				if (response != null) {
+					
+					// Connect to the server
+					ClientConnect connection = new ClientConnect(host, port);
+
+					try {
+						Message message = Message.makeEditMeaning(word, meaning, response);
+						String sendData = message.toJson();
+						connection.output.writeUTF(sendData);
+						connection.output.flush();
+					}
+					catch (Exception e) {
+						JOptionPane.showMessageDialog(null, "Unable to edit this meaning. Please Check the connection to dictionary server", "Error", JOptionPane.ERROR_MESSAGE);
+						e.printStackTrace();
+					}
+
+					// receive response
+					try {
+						String strMessage = connection.input.readUTF();
+						Message responseMessage = Message.fromJson(strMessage);
+						if (responseMessage.getSuccess()) {
+							JOptionPane.showMessageDialog(null, "Meaning edited successfully", "Success", JOptionPane.INFORMATION_MESSAGE);
+							displayMeanings(word, responseMessage.getMeanings());
+						}
+						else {
+							JOptionPane.showMessageDialog(null, responseMessage.getError(), "Error", JOptionPane.ERROR_MESSAGE);
+						}
+					}
+					catch (Exception e) {
+						JOptionPane.showMessageDialog(null, "Unable to edit this meaning. Please Check the connection to dictionary server", "Error", JOptionPane.ERROR_MESSAGE);
+						e.printStackTrace();
+					}
+				}
+			}
+		});
+
 	}
 
 	public void displayMeanings(String word, ArrayList<String> meanings) {
-		textArea.setText("");
-		int i = 1;
-		for (String meaning : meanings) {
-			textArea.append(i + ":\n    " + meaning + "\n");
-			i += 1;
-		}
+		meaningsList.setListData(meanings.toArray(new String[0]));
 	}
 }

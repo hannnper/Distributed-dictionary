@@ -1,3 +1,6 @@
+// Dictionary server main class
+// Han Perry 693878
+
 package dictionary;
 
 import java.net.Socket;
@@ -11,8 +14,15 @@ public class DictionaryServer {
     public static void main(String[] args) throws Exception {
         System.out.println("Server is starting!");
 
+        // get the port from the command line
+        if (args.length != 1) {
+            System.out.println("Usage: java -jar DictionaryServer.jar <port>");
+            return;
+        }
+        int port = Integer.parseInt(args[0]);
+
         try {
-            ServerSocket listener = new ServerSocket(9015);
+            ServerSocket listener = new ServerSocket(port);
             System.out.println("Server is listening on port " + listener.getLocalPort());
             
             // Create a thread pool to handle incoming requests

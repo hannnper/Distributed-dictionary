@@ -1,7 +1,7 @@
 package dictionary;
-import java.io.DataInputStream;
-import java.io.DataOutputStream;
-import java.net.Socket;
+
+import com.formdev.flatlaf.themes.FlatMacDarkLaf;
+
 import java.awt.EventQueue;
 
 public class DictionaryClient {
@@ -15,6 +15,7 @@ public class DictionaryClient {
         int port = Integer.parseInt(args[1]);
 
         // Start the GUI
+        FlatMacDarkLaf.setup();
         EventQueue.invokeLater(new Runnable() {
             public void run() {
                 try {

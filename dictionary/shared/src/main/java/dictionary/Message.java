@@ -1,3 +1,6 @@
+// Message class for the dictionary application
+// Han Perry 693878
+
 package dictionary;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import java.util.ArrayList;
@@ -19,23 +22,8 @@ public class Message {
     final static String REMOVE_MEANING_RESPONSE = REMOVE_MEANING + RESPONSE_SUFFIX;
     final static String UPDATE = "update";
     final static String UPDATE_RESPONSE = UPDATE + RESPONSE_SUFFIX;
-
-    // these would be cool to implement but aren't in the assignment guidelines
-    // and might not be possible to implement before the deadline TODO: remove
-    // final static String VIEW_LOG = "view-log";
-    // final static String VIEW_LOG_RESPONSE = VIEW_LOG + RESPONSE_SUFFIX;
-    // final static String BAN_CONTRIB = "ban-contributor";
-    // final static String BAN_CONTRIB_RESPONSE = "ban-contributor-response";
-    // final static String UNBAN_CONTRIB = "unban-contributor";
-    // final static String UNBAN_CONTRIB_RESPONSE = "unban-contributor-response";
-    // final static String REGISTER = "register";
-    // final static String REGISTER_RESPONSE = "register-response";
-    // final static String LOGIN = "login";
-    // final static String LOGIN_RESPONSE = "login-response";
-    // final static String LOGOUT = "logout";
-    // final static String LOGOUT_RESPONSE = "logout-response";
-    // final static String SHUTDOWN = "shutdown";
-    // final static String SHUTDOWN_RESPONSE = "shutdown-response";
+    final static String EDIT_MEANING = "edit-meaning";
+    final static String EDIT_MEANING_RESPONSE = EDIT_MEANING + RESPONSE_SUFFIX;
 
     // Error messages
     final static String ERROR_INVALID_COMMAND_MSG = "Invalid command";
@@ -50,21 +38,24 @@ public class Message {
     final static String ERROR_INVALID_MEANING_MSG = "Invalid meaning. Must be at least 1 and less than 1000 characters";
     final static String ERROR_INVALID_WORD_MSG = "Invalid word. Must be at least 1 and less than 100 characters";
     final static String ERROR_MEANING_NOT_FOUND_MSG = "Meaning not found";
+    final static String ERROR_MEANING_SAME_MSG = "Meaning is the same as the existing meaning";
 
     // Instance variables
     private String command;
     private String word;
     private String meaning;
+    private String oldMeaning;
     private ArrayList<String> meanings;
     private String error;
     private Boolean success;
-    private Boolean valid;
+    public Boolean valid;
 
     // Constructor
     public Message() {
-        this.command = "";
-        this.word = "";
-        this.meaning = "";
+        this.command = null;
+        this.word = null;
+        this.meaning = null;
+        this.oldMeaning = null;
         this.meanings = new ArrayList<String>();
         this.error = null;
         this.success = false;
@@ -95,7 +86,7 @@ public class Message {
         }
     }
 
-    public Boolean validityCheck() {
+    public Boolean isValid() {
         // at the point this is called the success will be false
         if (this.command == null || this.command.isEmpty()) {
             this.error = ERROR_MISSING_COMMAND_MSG;
@@ -109,14 +100,20 @@ public class Message {
             this.error = ERROR_INVALID_WORD_MSG;
             return false;
         }
-        if (this.command == ADD || this.command == UPDATE || 
-            this.command == REMOVE_MEANING) {
+        if (this.command.equals(ADD) || this.command.equals(UPDATE) || 
+            this.command.equals(REMOVE_MEANING) || this.command.equals(EDIT_MEANING)) {
             if (this.meaning == null || this.meaning.isEmpty()) {
                 this.error = ERROR_MISSING_MEANING_MSG;
                 return false;
             }
             if (this.meaning.length() > MAX_MEANING_LENGTH) {
                 this.error = ERROR_INVALID_MEANING_MSG;
+                return false;
+            }
+        }
+        if (this.command.equals(EDIT_MEANING)) {
+            if (this.oldMeaning == null || this.oldMeaning.isEmpty()) {
+                this.error = ERROR_MISSING_MEANING_MSG;
                 return false;
             }
         }
@@ -128,6 +125,7 @@ public class Message {
         response.setCommand(this.command + RESPONSE_SUFFIX);
         response.setWord(this.word);
         response.setMeaning(this.meaning);
+        response.setOldMeaning(this.oldMeaning);
         response.setMeanings(this.meanings);
         response.setSuccess(this.success);
         response.setError(this.error);
@@ -171,6 +169,15 @@ public class Message {
         message.setMeaning(meaning);
         return message;
     }
+
+    public static Message makeEditMeaning(String word, String oldMeaning, String newMeaning) {
+        Message message = new Message();
+        message.setCommand(Message.EDIT_MEANING);
+        message.setWord(word);
+        message.setOldMeaning(oldMeaning);
+        message.setMeaning(newMeaning);
+        return message;
+    }
     
     // Getters and setters
     public String getCommand() {
@@ -191,6 +198,12 @@ public class Message {
     public void setMeaning(String meaning) {
         this.meaning = meaning;
     }
+    public void setOldMeaning(String oldMeaning) {
+        this.oldMeaning = oldMeaning;
+    }
+    public String getOldMeaning() {
+        return oldMeaning;
+    }
     public ArrayList<String> getMeanings() {
         return meanings;
     }
@@ -199,6 +212,15 @@ public class Message {
     }
     public void removeMeaning(String meaning) {
         this.meanings.remove(meaning);
+    }
+    public void changeMeaning(String oldMeaning, String newMeaning) {
+        // remove the old meaning and add the new meaning at the same position
+        int index = this.meanings.indexOf(oldMeaning);
+        if (index == -1) {
+            return;
+        }
+        this.meanings.remove(index);
+        this.meanings.add(index, newMeaning);
     }
     public void setMeanings(ArrayList<String> meanings) {
         this.meanings = meanings;

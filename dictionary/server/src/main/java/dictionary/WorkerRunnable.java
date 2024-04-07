@@ -1,10 +1,12 @@
+// Dictionary Server worker runnable class
+// Han Perry 693878
+
 package dictionary;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
 import java.net.Socket;
 import java.net.SocketAddress;
-import java.util.ArrayList;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -38,7 +40,7 @@ public class WorkerRunnable implements Runnable {
             logger.info("IP: {}, command: {}, word: {}", ipSock, message.getCommand(), message.getWord());
 
             // check message for errors
-            if (!message.validityCheck()) {
+            if (!message.isValid()) {
                 // errors are passed back in the response
                 response = message.makeResponse();
                 response.setSuccess(false);
@@ -58,6 +60,9 @@ public class WorkerRunnable implements Runnable {
             }
             else if (message.getCommand().equals(Message.REMOVE_MEANING)) {
                 response = handleRemoveMeaning(message);
+            }
+            else if (message.getCommand().equals(Message.EDIT_MEANING)) {
+                response = handleEdit(message);
             }
             else {
                 response = handleInvalidCommand(message);
@@ -182,6 +187,41 @@ public class WorkerRunnable implements Runnable {
 
         // now delete this meaning for this word
         db.removeMeaning(message, response);
+
+        return response;
+    }
+
+    private Message handleEdit(Message message) {
+        MySqlHandler db = new MySqlHandler();
+        Message response = message.makeResponse();
+
+        // check if word is in database first
+        db.lookupWord(message, response);
+        if (!response.getSuccess()) {
+            // word is not in database or another error occurred
+            return response;
+        }
+
+        // check if old meaning is in meanings
+        String oldMeaning = message.getOldMeaning();
+        if (!response.getMeanings().contains(oldMeaning)) {
+            // old meaning is not in meanings
+            response.setError(Message.ERROR_MEANING_NOT_FOUND_MSG);
+            response.setSuccess(false);
+            return response;
+        }
+
+        // check if new meaning is in meanings
+        String newMeaning = message.getMeaning();
+        if (response.getMeanings().contains(newMeaning)) {
+            // new meaning already exists for this word
+            response.setError(Message.ERROR_MEANING_EXISTS_MSG);
+            response.setSuccess(false);
+            return response;
+        }
+
+        // now update this meaning for this word
+        db.editMeaning(message, response);
 
         return response;
     }

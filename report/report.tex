@@ -6,7 +6,7 @@
 \addbibresource{references.bib}
 
 \title{Dictionary Server Report}
-\author{Han Perry}
+\author{Han Perry 693878}
 \date{}
 
 \begin{document}
@@ -14,30 +14,47 @@
 \maketitle
 
 \section*{Introduction}
+This report describes the design and implementation of \texttt{DictionaryServer} and \texttt{DictionaryClient}. The server is a multi-threaded application that provides a dictionary service to clients, allowing a client to query the meaning(s) of a word, add a new word, remove an existing word, add a new meaning to a word and additional features such as editing and removing a selected meaning from a word. The server is implemented in Java and uses sockets for communication with clients. The server is capable of handling multiple clients concurrently through multithreading. The server uses a MySQL database to store the dictionary data. On the client side, there is a user-friendly graphical user interface.
 
 
-\section*{Sockets and Threads}
+\section*{Sockets and Networking}
 
-support for utf 
+\subsection*{Internet Protocol}
+The server and client communicate using the Transmission Control Protocol (TCP), chosen for its reliability and guarantee of lossless message arrival \cite{tcp-rfc}.
+
+\subsection*{Server}
+The server initialises a listening socket set to the port number specified by the user, and listens for incoming client connections. When a client connect, a \texttt{WorkerRunnable} object is created with the accepted client socket and added to the threadpool queue to be executed. Once processed, the worker thread sends a response back to the client and closes the connection.
+
+\subsection*{Client}
+The \texttt{ClientConnect} class handles the client-side socket connection. For each action (e.g. a word query), the client will establish a new connection with the server. Because the actions performed are fairly simple, this short-lived connection is an acceptable design choice and decreases the risk of an accidental disconnection. The overhead of establishing a new connection for each action should be reasonable as the client is not expected to perform a large number of actions in quick succession. When the client sends a request to the server it then waits for a response, which acts as a way to reduce the risk of spam actions from a single unmodified client.
+
+
+Since both client and server use the \texttt{writeUTF} and \texttt{readUTF} methods, the dictionary is compatible with unicode characters, including emoji.
+
+\section*{Concurrency and Multithreading}
+
 \subsection*{Architecture}
-Threadpool \cite{geeksforgeeks-thread-pools-java}.
+The server utilises the Java Executor Framework \cite{oracle-concurrent-docs} to manage a thread pool of worker threads, allowing multiple clients to connect concurrently. The server uses \texttt{ThreadPoolExecutor} to create a customised thread pool architecture, based on a cached thread pool \cite{geeksforgeeks-thread-pools-java} but with additional constraints of a minimum and maximum numbers of threads. When required, new threads are created up to the maximum number of threads, previously constructed threads are reused when available, and idle threads are terminated after a specified time (set to 60 seconds). A small core pool size of five is also set as a way to maintain some threads in the pool even when idle. This architecture allows the server to handle a usual load of clients concurrently with reduced overhead for thread creation, while also being able to scale up to meet increased demand. A maximum thread count of 20 is set to prevent resource exhaustion in the case of a large number of clients connecting simultaneously. Although this maximum protects against resource exhaustion, it limits the server's ability to handle a large number of clients concurrently if the actions requested are long-running. However, this is an acceptable trade-off as the server is designed for simple dictionary tasks that generally do not take a long time to process.
 
-Cached Thread Pool
 
-    Description: A cached thread pool creates new threads as needed, but will reuse previously constructed threads when they are available. Idle threads are kept in the pool for a limited time before being terminated and removed.
-    Use Case: Suitable for applications that have many short-lived asynchronous tasks and demand lightweight concurrency or tasks with highly variable execution times.
-    Advantages: More flexible than a fixed thread pool, as it can efficiently handle an increased load by temporarily adding more threads.
-    Limitations: Potential for resource exhaustion if the task arrival rate exceeds the ability to process and complete tasks, especially if tasks are long-running.
+\section*{Message Protocols}
+The server and client communicate using the \texttt{Message} class, which is a data structure that contains the information for the selected action. The \texttt{command} is a string that specifies the action that the client is requesting or the action request that the server is responding to. The \texttt{word} is the string word that the action is being carried out on, and \texttt{meaning} and \texttt{oldMeaning} are both single meanings referring to the word (the former being used in a message where it is requesting for an existing meaning to be edited). The \texttt{meanings} arraylist is used to send the multiple meaning of a word. For error handling there is an \texttt{error} string that is used to send details of the issue back to the client if an error occurs, \texttt{success} for a boolean indicator of success or failure, and \texttt{valid} for message format validation. The \texttt{Message} class is shown in Figure \ref{fig:message}.
 
-Customised java thread pool \cite{oracle-concurrent-docs}.
+\begin{figure}[htbp!]
+    \centering
+    \includegraphics[width=0.3\textwidth]{Message_class.jpg}
+    \caption{Message class}
+    \label{fig:message}
+\end{figure}
 
-\section*{Concurrency}
+The message is serialised using the \texttt{writeUTF} and \texttt{readUTF} methods of the \texttt{DataOutputStream} and \texttt{DataInputStream} classes, respectively. The message protocol is simple and easy to understand, making it suitable for the simple dictionary tasks that the server is designed to handle.
 
 \section*{Dictionary Implementation}
 
 Used mySQL database for dictionary storage and Java JDBC for interacting with this database \cite{vogella-mysql}.
 
 \section*{Graphical User Interface}
+theme: \cite{flatlaf}
 
 \section*{Error Handling}
 
@@ -49,8 +66,6 @@ Used log4j2 for logging \cite{apache-log4j}.
 Used Maven for dependency management with a multi-module project structure \cite{apache-maven-pom}.
 
 \section*{Creativity}
-
-\section*{Conclusion}
 
 \printbibliography
 \end{document}
