@@ -36,7 +36,7 @@
       \field{labelnamesource}{author}
       \field{labeltitlesource}{title}
       \field{title}{Apache Log4j}
-      \field{urlday}{6}
+      \field{urlday}{30}
       \field{urlmonth}{3}
       \field{urlyear}{2024}
       \field{year}{2024}
@@ -106,6 +106,35 @@
       \field{abstract}{This document specifies the Transmission Control Protocol (TCP). TCP is an important transport-layer protocol in the Internet protocol stack, and it has continuously evolved over decades of use and growth of the Internet. Over this time, a number of changes have been made to TCP as it was specified in RFC 793, though these have only been documented in a piecemeal fashion. This document collects and brings those changes together with the protocol specification from RFC 793. This document obsoletes RFC 793, as well as RFCs 879, 2873, 6093, 6429, 6528, and 6691 that updated parts of RFC 793. It updates RFCs 1011 and 1122, and it should be considered as a replacement for the portions of those documents dealing with TCP requirements. It also updates RFC 5961 by adding a small clarification in reset handling while in the SYN-RECEIVED state. The TCP header control bits from RFC 793 have also been updated based on RFC 3168.}
       \field{title}{RFC 9293: Transmission Control Protocol (TCP)}
       \field{year}{2022}
+    \endentry
+    \entry{jackson}{online}{}
+      \name{author}{1}{}{%
+        {{hash=a5fce8ee8b82bc755ae9c60e232288b1}{%
+           family={FasterXML},
+           familyi={F\bibinitperiod}}}%
+      }
+      \strng{namehash}{a5fce8ee8b82bc755ae9c60e232288b1}
+      \strng{fullhash}{a5fce8ee8b82bc755ae9c60e232288b1}
+      \strng{bibnamehash}{a5fce8ee8b82bc755ae9c60e232288b1}
+      \strng{authorbibnamehash}{a5fce8ee8b82bc755ae9c60e232288b1}
+      \strng{authornamehash}{a5fce8ee8b82bc755ae9c60e232288b1}
+      \strng{authorfullhash}{a5fce8ee8b82bc755ae9c60e232288b1}
+      \field{sortinit}{F}
+      \field{sortinithash}{2638baaa20439f1b5a8f80c6c08a13b4}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{title}{Jackson project}
+      \field{urlday}{7}
+      \field{urlmonth}{4}
+      \field{urlyear}{2024}
+      \field{year}{2024}
+      \field{urldateera}{ce}
+      \verb{urlraw}
+      \verb https://github.com/FasterXML/jackson
+      \endverb
+      \verb{url}
+      \verb https://github.com/FasterXML/jackson
+      \endverb
     \endentry
     \entry{flatlaf}{online}{}
       \name{author}{1}{}{%
@@ -177,6 +206,7 @@
       \strng{authorbibnamehash}{30162ed78b6c10f731411f2fc440c24f}
       \strng{authornamehash}{30162ed78b6c10f731411f2fc440c24f}
       \strng{authorfullhash}{30162ed78b6c10f731411f2fc440c24f}
+      \field{extraname}{1}
       \field{sortinit}{O}
       \field{sortinithash}{2cd7140a07aea5341f9e2771efe90aae}
       \field{labelnamesource}{author}
@@ -188,10 +218,70 @@
       \field{year}{2024}
       \field{urldateera}{ce}
       \verb{urlraw}
-      \verb https://docs.oracle.com/javase/8/docs/api/java/util/concurrent/package-summary.html
+      \verb https://docs.oracle.com/javase/21/docs/api/java/util/concurrent/package-summary.html
       \endverb
       \verb{url}
-      \verb https://docs.oracle.com/javase/8/docs/api/java/util/concurrent/package-summary.html
+      \verb https://docs.oracle.com/javase/21/docs/api/java/util/concurrent/package-summary.html
+      \endverb
+    \endentry
+    \entry{jdbc-docs}{online}{}
+      \name{author}{1}{}{%
+        {{hash=30162ed78b6c10f731411f2fc440c24f}{%
+           family={Oracle},
+           familyi={O\bibinitperiod}}}%
+      }
+      \strng{namehash}{30162ed78b6c10f731411f2fc440c24f}
+      \strng{fullhash}{30162ed78b6c10f731411f2fc440c24f}
+      \strng{bibnamehash}{30162ed78b6c10f731411f2fc440c24f}
+      \strng{authorbibnamehash}{30162ed78b6c10f731411f2fc440c24f}
+      \strng{authornamehash}{30162ed78b6c10f731411f2fc440c24f}
+      \strng{authorfullhash}{30162ed78b6c10f731411f2fc440c24f}
+      \field{extraname}{2}
+      \field{sortinit}{O}
+      \field{sortinithash}{2cd7140a07aea5341f9e2771efe90aae}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{title}{JDBC Developer's Guide and Reference}
+      \field{urlday}{30}
+      \field{urlmonth}{3}
+      \field{urlyear}{2024}
+      \field{year}{2022}
+      \field{urldateera}{ce}
+      \verb{urlraw}
+      \verb https://docs.oracle.com/en/database/oracle/oracle-database/21/jjdbc/
+      \endverb
+      \verb{url}
+      \verb https://docs.oracle.com/en/database/oracle/oracle-database/21/jjdbc/
+      \endverb
+    \endentry
+    \entry{swing}{online}{}
+      \name{author}{1}{}{%
+        {{hash=30162ed78b6c10f731411f2fc440c24f}{%
+           family={Oracle},
+           familyi={O\bibinitperiod}}}%
+      }
+      \strng{namehash}{30162ed78b6c10f731411f2fc440c24f}
+      \strng{fullhash}{30162ed78b6c10f731411f2fc440c24f}
+      \strng{bibnamehash}{30162ed78b6c10f731411f2fc440c24f}
+      \strng{authorbibnamehash}{30162ed78b6c10f731411f2fc440c24f}
+      \strng{authornamehash}{30162ed78b6c10f731411f2fc440c24f}
+      \strng{authorfullhash}{30162ed78b6c10f731411f2fc440c24f}
+      \field{extraname}{3}
+      \field{sortinit}{O}
+      \field{sortinithash}{2cd7140a07aea5341f9e2771efe90aae}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{title}{Swing Java Package Documentation}
+      \field{urlday}{6}
+      \field{urlmonth}{4}
+      \field{urlyear}{2024}
+      \field{year}{2024}
+      \field{urldateera}{ce}
+      \verb{urlraw}
+      \verb https://docs.oracle.com/en/java/javase/21/docs/api/java.desktop/javax/swing/package-summary.html
+      \endverb
+      \verb{url}
+      \verb https://docs.oracle.com/en/java/javase/21/docs/api/java.desktop/javax/swing/package-summary.html
       \endverb
     \endentry
     \entry{apache-maven-pom}{online}{}

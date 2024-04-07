@@ -8,49 +8,65 @@ import java.util.concurrent.LinkedBlockingQueue;
 import java.util.concurrent.ThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
 import java.net.ServerSocket;
+import java.awt.EventQueue;
+import com.formdev.flatlaf.themes.FlatMacLightLaf;
 
 
 public class DictionaryServer {
-    public static void main(String[] args) throws Exception {
-        System.out.println("Server is starting!");
+    public static ThreadPoolExecutor threadPool = null;
+    public static ServerSocket listener = null;
+    public static void main(String[] args) {
 
-        // get the port from the command line
-        if (args.length != 1) {
-            System.out.println("Usage: java -jar DictionaryServer.jar <port>");
-            return;
-        }
-        int port = Integer.parseInt(args[0]);
+        // start the GUI
+        FlatMacLightLaf.setup();
+        EventQueue.invokeLater(new Runnable() {
+            public void run() {
+                try {
+                    ServerGui window = new ServerGui();
+                    window.frame.setVisible(true);
+                } catch (Exception e) {
+                    System.out.println("Error starting server GUI");
+                    e.printStackTrace();
+                }
+            }
+        });
 
-        try {
-            ServerSocket listener = new ServerSocket(port);
-            System.out.println("Server is listening on port " + listener.getLocalPort());
-            
-            // Create a thread pool to handle incoming requests
-            // TODO: check what errors are thrown and handle them
-            ThreadPoolExecutor threadPool = new ThreadPoolExecutor(
+    }
+
+    public static ThreadPoolExecutor createThreadPool() {
+        ThreadPoolExecutor threadPool = new ThreadPoolExecutor(
                 5, // core thread pool size (always running threads)
                 20, // maximum thread pool size
                 60L, // time for idle threads to be kept alive
                 TimeUnit.SECONDS, // time unit for the keep alive time
                 new LinkedBlockingQueue<Runnable>() // work queue
             );
-            threadPool.setRejectedExecutionHandler(new ThreadPoolExecutor.AbortPolicy());
+        threadPool.setRejectedExecutionHandler(new ThreadPoolExecutor.AbortPolicy());
+        return threadPool;
+    }
 
-            while (true) {
-                Socket clientSocket = listener.accept();
-                System.out.println("Accepted connection from " + clientSocket.getRemoteSocketAddress());
+    public static void startServer(int port) throws Exception {
 
-                // Create a new worker runnable and submit it to the executor
-                WorkerRunnable worker = new WorkerRunnable(clientSocket);
-                threadPool.execute(worker);
-            }
+        // Create a server socket
+        listener = new ServerSocket(port);
+        
+        // Create a thread pool to handle incoming requests
+        threadPool = createThreadPool();
 
-            // TODO: create and catch exception that can be thrown when admin sends a shutdown command
-            // threadPool.shutdown();
-            // listener.close();
+    }
 
-        } catch (Exception e) {
-            System.out.println("Error: " + e);
+    public static void stopServer() throws Exception {
+        listener.close();
+        threadPool.shutdown();
+    }
+
+    public static void listenForClients() throws Exception {
+        while (true) {
+            Socket clientSocket = listener.accept();
+
+            // Create a new worker runnable and submit it to the executor
+            WorkerRunnable worker = new WorkerRunnable(clientSocket);
+            threadPool.execute(worker);
         }
     }
 }

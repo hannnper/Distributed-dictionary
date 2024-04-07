@@ -22,7 +22,6 @@ public class ClientGui {
 
 	public JFrame frame;
 	public JTextField textField;
-	//public JTextArea textArea;
 	public JPanel meaningsPane;
 	public JList<String> meaningsList;
 

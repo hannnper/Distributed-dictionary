@@ -29,14 +29,16 @@ public class WorkerRunnable implements Runnable {
             // Process the input
             String strMessage = input.readUTF();
             SocketAddress ipSock = clientSocket.getRemoteSocketAddress();
-            System.out.println("Accepted connection from " + ipSock);
-            System.out.println("Received: " + strMessage);
+
+            // Log the connection and message to the server GUI
+            String guiMsg = ("Accepted connection from " + ipSock + "\n" 
+                                + "Received: " + strMessage + "\n");
+            ServerGui.addLog(guiMsg);
+            
             Message message = Message.fromJson(strMessage);
             Message response = null;
-            System.out.println("Command: " + message.getCommand());
 
-            // Log the ip and command of the client
-            // TODO: add username? other info?
+            // Log the ip and command of the client to the log file
             logger.info("IP: {}, command: {}, word: {}", ipSock, message.getCommand(), message.getWord());
 
             // check message for errors
@@ -70,7 +72,7 @@ public class WorkerRunnable implements Runnable {
 
             // Send the response back to the client
             String strResponse = response.toJson();
-            System.out.println("Sending: " + strResponse);
+            ServerGui.addLog("Sending: " + strResponse + "\n");
             output.writeUTF(strResponse);
             
             // Close the streams
@@ -78,8 +80,7 @@ public class WorkerRunnable implements Runnable {
             input.close();
 
         } catch (IOException e) {
-            // TODO: Handle exception
-            System.out.println("Error: " + e);
+            ServerGui.addLog("Error: " + e + "\n");
         }
     }
 

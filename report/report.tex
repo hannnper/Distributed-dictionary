@@ -1,6 +1,7 @@
 \documentclass{article}
 \usepackage{geometry}
 \usepackage{graphicx}
+\usepackage{subcaption}
 \usepackage{biblatex}
 
 \addbibresource{references.bib}
@@ -42,30 +43,100 @@ The server and client communicate using the \texttt{Message} class, which is a d
 
 \begin{figure}[htbp!]
     \centering
-    \includegraphics[width=0.3\textwidth]{Message_class.jpg}
+    \includegraphics[width=0.3\textwidth]{images/Message_class.jpg}
     \caption{Message class}
     \label{fig:message}
 \end{figure}
 
-The message is serialised using the \texttt{writeUTF} and \texttt{readUTF} methods of the \texttt{DataOutputStream} and \texttt{DataInputStream} classes, respectively. The message protocol is simple and easy to understand, making it suitable for the simple dictionary tasks that the server is designed to handle.
+The message is serialised into a string using the \texttt{toString} method of the \texttt{Message} class, which uses the \texttt{ObjectMapper} from the  jackson library \cite{jackson} to convert the message object into a JSON formatted string that can be sent between server and client. The JSON string is then sent and received using the \texttt{writeUTF} and \texttt{readUTF} methods of the \texttt{DataOutputStream} and \texttt{DataInputStream} classes, respectively.
+
+As the message format is checked for validity, the server is protected against malformed messages that could cause errors, such as a message with a null value for a required field. The server will respond by sending an error message back to the client, which will then display the error message to the user. This design choice was made to ensure that the server is robust and can handle unexpected input from the client.
 
 \section*{Dictionary Implementation}
 
-Used mySQL database for dictionary storage and Java JDBC for interacting with this database \cite{vogella-mysql}.
+The dictionary is stored using a mySQL database for dictionary storage and Java JDBC \cite{jdbc-docs} for interacting with this database \cite{vogella-mysql} within the \texttt{MySqlHandler} class. A mySQL database interfaced by JDBC is more suitable than a file or in-memory object as it allows for scalability of the number of words and meanings stored while maintaining a reasonably fast and efficient lookup. By using a separate database connection for each prepared statement, the server can handle multiple clients concurrently without the risk of data corruption in the database. The mySQL handler class uses prepared statements to prevent SQL injection attacks.
+
+\subsection*{Database Schema}
+The database schema consists of a single table, \texttt{dictionary}, with columns \texttt{id}, \texttt{word} and \texttt{meaning}. The \texttt{id} column is the primary key, so a word can have multiple entries corresponding to different meanings. The schema is shown in Figure \ref{fig:schema}. While this is a simple schema, it is sufficient for the requirements of the dictionary server. Using a database also gives flexibility to expand the schema to include additional features in the future, such as user accounts and permissions.
+
+\begin{figure}[htbp!]
+    \centering
+    \includegraphics[width=0.2\textwidth]{images/database_schema.png}
+    \caption{Database schema}
+    \label{fig:schema}
+\end{figure}
 
 \section*{Graphical User Interface}
-theme: \cite{flatlaf}
+
+\subsection*{Client}
+For ease of usability, the dictionary client has a graphical user interface (GUI) that allows the user to type a word into the text field and select the desired action. The GUI is implemented using Java Swing \cite{swing} and the FlatLaf look and feel to give the GUI a sleek darkmode appearance \cite{flatlaf}. A collection of screenshots displaying some of the various features of the client GUI is shown in Figure \ref{fig:client-gui}.
+
+\begin{figure}[htbp!]
+\begin{subfigure}{.5\textwidth}
+    \centering
+    \includegraphics[width=0.8\linewidth]{images/gui.png}
+    \caption{Displaying meanings of a word}
+\end{subfigure}%
+\begin{subfigure}{.5\textwidth}
+    \centering
+    \includegraphics[width=0.8\linewidth]{images/gui_notfound.png}
+    \caption{Error message}
+\end{subfigure}\\
+\begin{subfigure}{.5\textwidth}
+    \centering
+    \includegraphics[width=0.8\linewidth]{images/gui_confirm.png}
+    \caption{Confirmation}
+\end{subfigure}%
+\begin{subfigure}{.5\textwidth}
+    \centering
+    \includegraphics[width=0.8\linewidth]{images/gui_info.png}
+    \caption{Information}
+\end{subfigure}
+\caption{Client GUI}
+\label{fig:client-gui}
+\end{figure}
 
 \section*{Error Handling}
+In order for the dictionary to be robust and reliable, error handling is implemented at both the client and server side. 
+
+% The server checks the message format for validity and sends an error message back to the client if the message is malformed. The client displays the error message to the user, allowing them to understand what went wrong and take appropriate action. The server also checks for errors when interacting with the database, such as a word not being found, and sends an error message back to the client if an error occurs. The client displays the error message to the user, allowing them to understand what went wrong and take appropriate action. The server also logs errors using log4j2 \cite{apache-log4j} to help with debugging and monitoring.
+
+\subsection*{Client-side}
+If an issue can be detected on the client side, the client will avoid sending the malformed message to the server and instead will display an error message to the user. This includes issues such as pressing the query or add button without typing a word into the text field or leaving the text field blank when prompted for a meaning to add when attempting to add a new word or add a new meaning to a word.
+
+If the server detects an issue or an error is raised during the processing of the client's request message, the server sends an error message back to the client and the client displays the error message to the user with an error pop-up alert, allowing the user to understand what went wrong. This includes issues such as a word not being found in the database, a word already existing in the database when trying to add a new word, a meaning being added to a word that already exists, or a meaning not being found when trying to edit or remove a meaning from a word. Since these issues are not known to the client before sending the action request message, the server must handle these errors and it cannot be prevented solely on the client side.
+
+If the server cannot be reached by the client, the client will display an error message to the user, informing them that it was unable to fulfil their requested action and to check the connection to the server.
+
+When launched from the command line, the client will display an error message if the server address or port number is not provided as command line arguments.
+
+\subsection*{Server-side}
+The server performs checks to ensure the required fields of the message are provided and that the action being requested by the client is valid and appropriate. 
+
+The server also handles errors that arise when interacting with the database, such as not being able to establish a connection, and sends an informative error message back to the client if an error occurs.
 
 \subsection*{Logging}
-Used log4j2 for logging \cite{apache-log4j}.
+The server logs interactions using log4j2 \cite{apache-log4j} to help with debugging and monitoring. This provides a log of each requested command, the word specified and the ip address of the client, that persists after the server is shut down. This allows for monitoring of misuse of the dictionary, such as malicious editing of the dictionary or spamming the server with messages.
 
 \section*{Excellence}
 
-Used Maven for dependency management with a multi-module project structure \cite{apache-maven-pom}.
+There are several aspects of this project's implementation which go beyond what was required in the specification, including:
+\begin{itemize}
+    \item \textbf{Dependency management:} Using Maven for dependency management with a multi-module project structure \cite{apache-maven-pom}. This allowed for simplified dependency management and project structure.
+    \item \textbf{Error handling:} The server and client both have extensive error handling to ensure the dictionary is robust and reliable. The user is informed of any errors that occur and given details that help them resolve the issue.
+    \item \textbf{Logging:} The server logs interactions using log4j2 to help with debugging and monitoring.
+    \item \textbf{Database:} Using a MySQL database for dictionary storage and JDBC for interacting with the database. This allows for scalability of the size of the dictionary while maintaining a reasonably fast and efficient lookup.
+    \item \textbf{Concurrency:} The server uses a customised thread pool architecture to handle multiple clients concurrently, allowing the server to scale up to meet increased demand while balancing scalability with resource capacity and limitations.
+\end{itemize}
 
 \section*{Creativity}
+
+This project implements additional aspects that demonstrate creativity, including:
+\begin{itemize}
+    \item \textbf{Remove meaning:} This additional command gives the ability to remove a selected meaning from a word, without needing to remove the entire word. This feature is not present in the specification but adds additional functionality to the dictionary. The user interface allows for clicking on the meaning to select it and a convenient `Remove Meaning' is provided.
+    \item \textbf{Edit meaning:} This additional command allows the user to edit an existing meaning of a word. This feature is also not present in the specification but adds additional functionality and usability to the dictionary. When the user selects a meaning and clicks `Edit Meaning' an input box pops up with the existing meaning pre-filled, allowing the user to edit the meaning and submit the changes to the dictionary.
+\end{itemize}
+
 
 \printbibliography
 \end{document}
