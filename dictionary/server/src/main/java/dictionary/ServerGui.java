@@ -14,6 +14,7 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 
 public class ServerGui {
@@ -50,8 +51,16 @@ public class ServerGui {
         gbc_textArea.insets = new Insets(0, 0, 0, 0);
         gbc_textArea.fill = GridBagConstraints.BOTH;
         gbc_textArea.gridx = 0;
-        gbc_textArea.gridy = 1;
-        frame.getContentPane().add(textArea, gbc_textArea);
+        gbc_textArea.gridy = 0;
+
+        // scrollpane for the text area
+        JScrollPane scrollPane = new JScrollPane(textArea);
+        GridBagConstraints gbc_scrollPane = new GridBagConstraints();
+        gbc_scrollPane.insets = new Insets(5, 5, 5, 5);
+        gbc_scrollPane.fill = GridBagConstraints.BOTH;
+        gbc_scrollPane.gridx = 0;
+        gbc_scrollPane.gridy = 1;
+        frame.getContentPane().add(scrollPane, gbc_scrollPane);
 
         // panel for buttons
         JPanel panel = new JPanel();

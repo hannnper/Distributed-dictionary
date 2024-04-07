@@ -1,11 +1,12 @@
 # Fdb version 3
-["biber report"] 1712491113 "report.bcf" "report.bbl" "report" 1712492880
-  "report.bcf" 1712492879 108094 39c9189c363e4b4ff287790d3ef5773c "pdflatex"
+["biber report"] 1712499955 "report.bcf" "report.bbl" "report" 1712501161
+  "references.bib" 1712490187 2957 3cfe5296b49d8e1cb548588cc5000a54 ""
+  "report.bcf" 1712501161 108192 8d79c6e276ded94a445de1d26e05a262 "pdflatex"
   (generated)
   "report.bbl"
   "report.blg"
-["pdflatex"] 1712492876 "/Users/han/Documents/GitHub/Distributed_Systems_assignment1/report/report.tex" "report.pdf" "report" 1712492880
-  "/Users/han/Documents/GitHub/Distributed_Systems_assignment1/report/report.tex" 1712492871 13992 f0b6cff55fd763e0a1a8243b0d64e2dc ""
+["pdflatex"] 1712501155 "/Users/han/Documents/GitHub/Distributed_Systems_assignment1/report/report.tex" "report.pdf" "report" 1712501161
+  "/Users/han/Documents/GitHub/Distributed_Systems_assignment1/report/report.tex" 1712501153 15245 248e542806dc37ed92d049f18048897e ""
   "/usr/local/texlive/2022/texmf-dist/fonts/enc/dvips/cm-super/cm-super-ts1.enc" 1136849721 2900 1537cc8184ad1792082cd229ecc269f4 ""
   "/usr/local/texlive/2022/texmf-dist/fonts/map/fontname/texfonts.map" 1577235249 3524 cb3e574dea2d1052e39280babc910dc8 ""
   "/usr/local/texlive/2022/texmf-dist/fonts/tfm/jknappen/ec/tcrm1000.tfm" 1136768653 1536 e07581a4bb3136ece9eeb4c3ffab8233 ""
@@ -85,10 +86,14 @@
   "images/gui_confirm.png" 1712486646 210148 512190c3508de727f9de5f872f9d13ab ""
   "images/gui_info.png" 1712486646 207629 8daff1cfca344951aba9409350598bdb ""
   "images/gui_notfound.png" 1712486647 172516 829d9e27ff14eaacbabf7b76ce9771b4 ""
-  "report.aux" 1712492879 2055 9018fd09e3bfa9277c04b3181bee9e86 "pdflatex"
-  "report.bbl" 1712491126 12786 1049d9b2fc936437b2342363030b849b "biber report"
-  "report.run.xml" 1712492879 2319 1dbeae9c91c70510d621aca3b4772e83 "pdflatex"
-  "report.tex" 1712492871 13992 f0b6cff55fd763e0a1a8243b0d64e2dc ""
+  "images/server_gui_ask_port.png" 1712499606 201710 d7cc9120b5d0bd40c7a8f32ff61d81f3 ""
+  "images/server_gui_init.png" 1712499606 103052 e2720a00b4579a354fe233847cbb9410 ""
+  "images/server_gui_issue.png" 1712499606 99789 6b7056380086d60d8f2e5a63cdc94f78 ""
+  "images/server_gui_running.png" 1712499607 217469 3a1181eb902de492a84a2967fc4a15c2 ""
+  "report.aux" 1712501161 2315 b202bbbddbf38fe8edae764262e81b6b "pdflatex"
+  "report.bbl" 1712499960 12786 1049d9b2fc936437b2342363030b849b "biber report"
+  "report.run.xml" 1712501161 2319 1dbeae9c91c70510d621aca3b4772e83 "pdflatex"
+  "report.tex" 1712501153 15245 248e542806dc37ed92d049f18048897e ""
   (generated)
   "report.aux"
   "report.bcf"

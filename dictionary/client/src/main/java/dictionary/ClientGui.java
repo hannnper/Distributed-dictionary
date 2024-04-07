@@ -158,6 +158,7 @@ public class ClientGui {
 					JOptionPane.showMessageDialog(null, "Unable to query this word. Please Check the connection to dictionary server", "Error", JOptionPane.ERROR_MESSAGE);
 					System.out.println("Error sending query");
 					System.out.println("Error: " + e);
+					return;
 				}
 
 				// Receive response and display
@@ -175,6 +176,7 @@ public class ClientGui {
 				catch (Exception e) {
 					JOptionPane.showMessageDialog(null, "Unable to query this word. Please Check the connection to dictionary server", "Error", JOptionPane.ERROR_MESSAGE);
 					System.out.println("Error: " + e);
+					return;
 				}
 				
 				// Close the connection
@@ -203,6 +205,7 @@ public class ClientGui {
 					catch (Exception e) {
 						JOptionPane.showMessageDialog(null, "Unable to add this word. Please Check the connection to dictionary server", "Error", JOptionPane.ERROR_MESSAGE);
 						e.printStackTrace();
+						return;
 					}
 
 					// receive response
@@ -220,6 +223,7 @@ public class ClientGui {
 					catch (Exception e) {
 						JOptionPane.showMessageDialog(null, "Unable to add this word. Please Check the connection to dictionary server", "Error", JOptionPane.ERROR_MESSAGE);
 						e.printStackTrace();
+						return;
 					}
 				}
 			}
@@ -246,6 +250,7 @@ public class ClientGui {
 					catch (Exception e) {
 						JOptionPane.showMessageDialog(null, "Unable to update this word. Please Check the connection to dictionary server", "Error", JOptionPane.ERROR_MESSAGE);
 						e.printStackTrace();
+						return;
 					}
 
 					// receive response
@@ -263,6 +268,7 @@ public class ClientGui {
 					catch (Exception e) {
 						JOptionPane.showMessageDialog(null, "Unable to update this word. Please Check the connection to dictionary server", "Error", JOptionPane.ERROR_MESSAGE);
 						e.printStackTrace();
+						return;
 					}
 				}
 			}
@@ -289,6 +295,7 @@ public class ClientGui {
 					catch (Exception e) {
 						JOptionPane.showMessageDialog(null, "Unable to remove this word. Please Check the connection to dictionary server", "Error", JOptionPane.ERROR_MESSAGE);
 						e.printStackTrace();
+						return;
 					}
 
 					// receive response
@@ -306,6 +313,7 @@ public class ClientGui {
 					catch (Exception e) {
 						JOptionPane.showMessageDialog(null, "Unable to remove this word. Please Check the connection to dictionary server", "Error", JOptionPane.ERROR_MESSAGE);
 						e.printStackTrace();
+						return;
 					}
 				}
 			}
@@ -337,6 +345,7 @@ public class ClientGui {
 					catch (Exception e) {
 						JOptionPane.showMessageDialog(null, "Unable to remove this meaning. Please Check the connection to dictionary server", "Error", JOptionPane.ERROR_MESSAGE);
 						e.printStackTrace();
+						return;
 					}
 
 					// receive response
@@ -354,6 +363,7 @@ public class ClientGui {
 					catch (Exception e) {
 						JOptionPane.showMessageDialog(null, "Unable to remove this meaning. Please Check the connection to dictionary server", "Error", JOptionPane.ERROR_MESSAGE);
 						e.printStackTrace();
+						return;
 					}
 				}
 			}
@@ -384,6 +394,7 @@ public class ClientGui {
 					catch (Exception e) {
 						JOptionPane.showMessageDialog(null, "Unable to edit this meaning. Please Check the connection to dictionary server", "Error", JOptionPane.ERROR_MESSAGE);
 						e.printStackTrace();
+						return;
 					}
 
 					// receive response
@@ -401,6 +412,7 @@ public class ClientGui {
 					catch (Exception e) {
 						JOptionPane.showMessageDialog(null, "Unable to edit this meaning. Please Check the connection to dictionary server", "Error", JOptionPane.ERROR_MESSAGE);
 						e.printStackTrace();
+						return;
 					}
 				}
 			}

@@ -96,10 +96,36 @@ For ease of usability, the dictionary client has a graphical user interface (GUI
 \label{fig:client-gui}
 \end{figure}
 
+\subsection*{Server}
+The server also has a simple GUI that allows the user to start and stop the server and view a log of events and server-based errors that arise. The server GUI is also implemented using Java Swing \cite{swing} and the FlatLaf look and feel to give a simple lightmode appearance \cite{flatlaf}. The server GUI is shown in Figure \ref{fig:server-gui}.
+
+\begin{figure}[htbp!]
+    \begin{subfigure}{.5\textwidth}
+        \centering
+        \includegraphics[width=0.8\linewidth]{images/server_gui_init.png}
+        \caption{Initial view on launch}
+    \end{subfigure}%
+    \begin{subfigure}{.5\textwidth}
+        \centering
+        \includegraphics[width=0.8\linewidth]{images/server_gui_ask_port.png}
+        \caption{Asking for port number}
+    \end{subfigure}\\
+    \begin{subfigure}{.5\textwidth}
+        \centering
+        \includegraphics[width=0.8\linewidth]{images/server_gui_issue.png}
+        \caption{When an issue occurs}
+    \end{subfigure}%
+    \begin{subfigure}{.5\textwidth}
+        \centering
+        \includegraphics[width=0.8\linewidth]{images/server_gui_running.png}
+        \caption{While running}
+    \end{subfigure}
+    \caption{Server GUI}
+    \label{fig:server-gui}
+\end{figure}
+
 \section*{Error Handling}
 In order for the dictionary to be robust and reliable, error handling is implemented at both the client and server side. 
-
-% The server checks the message format for validity and sends an error message back to the client if the message is malformed. The client displays the error message to the user, allowing them to understand what went wrong and take appropriate action. The server also checks for errors when interacting with the database, such as a word not being found, and sends an error message back to the client if an error occurs. The client displays the error message to the user, allowing them to understand what went wrong and take appropriate action. The server also logs errors using log4j2 \cite{apache-log4j} to help with debugging and monitoring.
 
 \subsection*{Client-side}
 If an issue can be detected on the client side, the client will avoid sending the malformed message to the server and instead will display an error message to the user. This includes issues such as pressing the query or add button without typing a word into the text field or leaving the text field blank when prompted for a meaning to add when attempting to add a new word or add a new meaning to a word.
@@ -116,7 +142,9 @@ The server performs checks to ensure the required fields of the message are prov
 The server also handles errors that arise when interacting with the database, such as not being able to establish a connection, and sends an informative error message back to the client if an error occurs.
 
 \subsection*{Logging}
-The server logs interactions using log4j2 \cite{apache-log4j} to help with debugging and monitoring. This provides a log of each requested command, the word specified and the ip address of the client, that persists after the server is shut down. This allows for monitoring of misuse of the dictionary, such as malicious editing of the dictionary or spamming the server with messages.
+The server logs interactions using log4j2 \cite{apache-log4j} to help with debugging and monitoring. This provides a log of each requested command, the word specified and the ip address of the client, that persists after the server is shut down. This allows for monitoring of misuse of the dictionary, such as malicious editing of the dictionary or spamming the server with messages. Log4j2 is designed to be fast and efficient, with lock-free asynchronous logging to prevent the logging from slowing down the server's performance and allow it to be used in contexts requiring concurrency.
+
+An additional log is visible in the server GUI, which displays the log of events and server-based errors that arise. This provides a user-friendly way to monitor the server's status and view any errors that occur.
 
 \section*{Excellence}
 
@@ -135,6 +163,7 @@ This project implements additional aspects that demonstrate creativity, includin
 \begin{itemize}
     \item \textbf{Remove meaning:} This additional command gives the ability to remove a selected meaning from a word, without needing to remove the entire word. This feature is not present in the specification but adds additional functionality to the dictionary. The user interface allows for clicking on the meaning to select it and a convenient `Remove Meaning' is provided.
     \item \textbf{Edit meaning:} This additional command allows the user to edit an existing meaning of a word. This feature is also not present in the specification but adds additional functionality and usability to the dictionary. When the user selects a meaning and clicks `Edit Meaning' an input box pops up with the existing meaning pre-filled, allowing the user to edit the meaning and submit the changes to the dictionary.
+    \item \textbf{Server GUI:} The server has a simple GUI that allows the user to start and stop the server and view a log of events and server-based errors that arise. This provides a user-friendly way to interact with the server and monitor its status.
 \end{itemize}
 
 

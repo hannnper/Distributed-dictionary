@@ -101,7 +101,7 @@ public class WorkerRunnable implements Runnable {
         return response;
     }
 
-    private Message handleAdd(Message message) {
+    private synchronized Message handleAdd(Message message) {
         MySqlHandler db = new MySqlHandler();
         Message response = message.makeResponse();
 
@@ -128,7 +128,7 @@ public class WorkerRunnable implements Runnable {
         return response;
     }
 
-    private Message handleUpdate(Message message) {
+    private synchronized Message handleUpdate(Message message) {
         MySqlHandler db = new MySqlHandler();
         Message response = message.makeResponse();
 
@@ -149,7 +149,7 @@ public class WorkerRunnable implements Runnable {
         return response;
     }
 
-    private Message handleRemoveWord(Message message) {
+    private synchronized Message handleRemoveWord(Message message) {
         MySqlHandler db = new MySqlHandler();
         Message response = message.makeResponse();
 
@@ -166,7 +166,7 @@ public class WorkerRunnable implements Runnable {
         return response;
     }
 
-    private Message handleRemoveMeaning(Message message) {
+    private synchronized Message handleRemoveMeaning(Message message) {
         MySqlHandler db = new MySqlHandler();
         Message response = message.makeResponse();
 
@@ -192,7 +192,7 @@ public class WorkerRunnable implements Runnable {
         return response;
     }
 
-    private Message handleEdit(Message message) {
+    private synchronized Message handleEdit(Message message) {
         MySqlHandler db = new MySqlHandler();
         Message response = message.makeResponse();
 
