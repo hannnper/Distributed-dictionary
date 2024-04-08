@@ -68,7 +68,6 @@ public class Message {
             return mapper.readValue(json, Message.class);
         } 
         catch (Exception e) {
-            // TODO: handle exception
             e.printStackTrace();
             return null;
         }
@@ -80,7 +79,6 @@ public class Message {
             ObjectMapper mapper = new ObjectMapper();
             return mapper.writeValueAsString(this);
         } catch (Exception e) {
-            // TODO: handle exception
             e.printStackTrace();
             return null;
         }

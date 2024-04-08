@@ -171,7 +171,6 @@ public class ClientGui {
 				// Receive response and display
 				try {
 					String strMessage = connection.input.readUTF();
-					System.out.println("Received: " + strMessage);
 					Message response = Message.fromJson(strMessage);
 					if (response.getSuccess()) {
 						displayMeanings(word, response.getMeanings());
