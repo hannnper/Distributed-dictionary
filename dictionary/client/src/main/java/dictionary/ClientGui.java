@@ -146,7 +146,14 @@ public class ClientGui {
 				String word = textField.getText().strip();
 
 				// Connect to the server
-				ClientConnect connection = new ClientConnect(host, port);
+				ClientConnect connection = null;
+				try {
+					connection = new ClientConnect(host, port);
+				}
+				catch (Exception e) {
+					JOptionPane.showMessageDialog(null, "Unable to connect to dictionary server", "Error", JOptionPane.ERROR_MESSAGE);
+					return;
+				}
 
 				// Send query
 				try {
@@ -180,7 +187,13 @@ public class ClientGui {
 				}
 				
 				// Close the connection
-				connection.close();
+				try {
+					connection.close();
+				}
+				catch (Exception e) {
+					JOptionPane.showMessageDialog(null, "Unable to close the connection to dictionary server", "Error", JOptionPane.ERROR_MESSAGE);
+					return;
+				}
 			}
 		});
 
@@ -195,7 +208,14 @@ public class ClientGui {
 					Message message = Message.makeAdd(word, response);
 					
 					// Connect to the server
-					ClientConnect connection = new ClientConnect(host, port);
+					ClientConnect connection = null;
+					try {
+						connection = new ClientConnect(host, port);
+					}
+					catch (Exception e) {
+						JOptionPane.showMessageDialog(null, "Unable to connect to dictionary server", "Error", JOptionPane.ERROR_MESSAGE);
+						return;
+					}
 
 					try {
 						String sendData = message.toJson();
@@ -225,6 +245,14 @@ public class ClientGui {
 						e.printStackTrace();
 						return;
 					}
+					// Close the connection
+					try {
+						connection.close();
+					}
+					catch (Exception e) {
+						JOptionPane.showMessageDialog(null, "Unable to close the connection to dictionary server", "Error", JOptionPane.ERROR_MESSAGE);
+						return;
+					}
 				}
 			}
 		});
@@ -240,7 +268,14 @@ public class ClientGui {
 					Message message = Message.makeUpdate(word, response);
 					
 					// Connect to the server
-					ClientConnect connection = new ClientConnect(host, port);
+					ClientConnect connection = null;
+					try {
+						connection = new ClientConnect(host, port);
+					}
+					catch (Exception e) {
+						JOptionPane.showMessageDialog(null, "Unable to connect to dictionary server", "Error", JOptionPane.ERROR_MESSAGE);
+						return;
+					}
 
 					try {
 						String sendData = message.toJson();
@@ -270,6 +305,14 @@ public class ClientGui {
 						e.printStackTrace();
 						return;
 					}
+					// Close the connection
+					try {
+						connection.close();
+					}
+					catch (Exception e) {
+						JOptionPane.showMessageDialog(null, "Unable to close the connection to dictionary server", "Error", JOptionPane.ERROR_MESSAGE);
+						return;
+					}
 				}
 			}
 		});
@@ -285,7 +328,14 @@ public class ClientGui {
 					Message message = Message.makeRemoveWord(word);
 					
 					// Connect to the server
-					ClientConnect connection = new ClientConnect(host, port);
+					ClientConnect connection = null;
+					try {
+						connection = new ClientConnect(host, port);
+					}
+					catch (Exception e) {
+						JOptionPane.showMessageDialog(null, "Unable to connect to dictionary server", "Error", JOptionPane.ERROR_MESSAGE);
+						return;
+					}
 
 					try {
 						String sendData = message.toJson();
@@ -315,6 +365,14 @@ public class ClientGui {
 						e.printStackTrace();
 						return;
 					}
+					// Close the connection
+					try {
+						connection.close();
+					}
+					catch (Exception e) {
+						JOptionPane.showMessageDialog(null, "Unable to close the connection to dictionary server", "Error", JOptionPane.ERROR_MESSAGE);
+						return;
+					}
 				}
 			}
 		});
@@ -335,7 +393,14 @@ public class ClientGui {
 					Message message = Message.makeRemoveMeaning(word, meaning);
 					
 					// Connect to the server
-					ClientConnect connection = new ClientConnect(host, port);
+					ClientConnect connection = null;
+					try {
+						connection = new ClientConnect(host, port);
+					}
+					catch (Exception e) {
+						JOptionPane.showMessageDialog(null, "Unable to connect to dictionary server", "Error", JOptionPane.ERROR_MESSAGE);
+						return;
+					}
 
 					try {
 						String sendData = message.toJson();
@@ -365,6 +430,14 @@ public class ClientGui {
 						e.printStackTrace();
 						return;
 					}
+					// Close the connection
+					try {
+						connection.close();
+					}
+					catch (Exception e) {
+						JOptionPane.showMessageDialog(null, "Unable to close the connection to dictionary server", "Error", JOptionPane.ERROR_MESSAGE);
+						return;
+					}
 				}
 			}
 		});
@@ -383,7 +456,14 @@ public class ClientGui {
 				if (response != null) {
 					
 					// Connect to the server
-					ClientConnect connection = new ClientConnect(host, port);
+					ClientConnect connection = null;
+					try {
+						connection = new ClientConnect(host, port);
+					}
+					catch (Exception e) {
+						JOptionPane.showMessageDialog(null, "Unable to connect to dictionary server", "Error", JOptionPane.ERROR_MESSAGE);
+						return;
+					}
 
 					try {
 						Message message = Message.makeEditMeaning(word, meaning, response);
@@ -412,6 +492,14 @@ public class ClientGui {
 					catch (Exception e) {
 						JOptionPane.showMessageDialog(null, "Unable to edit this meaning. Please Check the connection to dictionary server", "Error", JOptionPane.ERROR_MESSAGE);
 						e.printStackTrace();
+						return;
+					}
+					// Close the connection
+					try {
+						connection.close();
+					}
+					catch (Exception e) {
+						JOptionPane.showMessageDialog(null, "Unable to close the connection to dictionary server", "Error", JOptionPane.ERROR_MESSAGE);
 						return;
 					}
 				}

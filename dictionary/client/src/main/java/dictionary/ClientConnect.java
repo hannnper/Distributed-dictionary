@@ -12,32 +12,22 @@ public class ClientConnect {
     public DataInputStream input;
     public DataOutputStream output;
 
-    public ClientConnect(String host, int port) {
+    public ClientConnect(String host, int port) throws Exception{
 
-        try {
-            socket = new Socket(host, port);
-            System.out.println("Connected to server on port " + socket.getPort());
+        // connect to the server
+        socket = new Socket(host, port);
 
-            // set input and output streams
-			input = new DataInputStream(socket.getInputStream());
-			
-		    output = new DataOutputStream(socket.getOutputStream());
-
-        } catch (Exception e) {
-            System.out.println("Connection error");
-            System.out.println("Error: " + e);
-        }
+        // set input and output streams
+        input = new DataInputStream(socket.getInputStream());
+        
+        output = new DataOutputStream(socket.getOutputStream());
 
     }
 
-    public void close() {
-        try {
-            input.close();
-            output.close();
-            socket.close();
-        } catch (Exception e) {
-            System.out.println("Error closing connection");
-            System.out.println("Error: " + e);
-        }
+    public void close() throws Exception{
+
+        input.close();
+        output.close();
+        socket.close();
     }
 }

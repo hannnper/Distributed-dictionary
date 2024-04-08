@@ -1,12 +1,11 @@
 # Fdb version 3
-["biber report"] 1712499955 "report.bcf" "report.bbl" "report" 1712501161
-  "references.bib" 1712490187 2957 3cfe5296b49d8e1cb548588cc5000a54 ""
-  "report.bcf" 1712501161 108192 8d79c6e276ded94a445de1d26e05a262 "pdflatex"
+["biber report"] 1712535090 "report.bcf" "report.bbl" "report" 1712538730
+  "report.bcf" 1712538729 108192 8d79c6e276ded94a445de1d26e05a262 "pdflatex"
   (generated)
   "report.bbl"
   "report.blg"
-["pdflatex"] 1712501155 "/Users/han/Documents/GitHub/Distributed_Systems_assignment1/report/report.tex" "report.pdf" "report" 1712501161
-  "/Users/han/Documents/GitHub/Distributed_Systems_assignment1/report/report.tex" 1712501153 15245 248e542806dc37ed92d049f18048897e ""
+["pdflatex"] 1712538719 "/Users/han/Documents/GitHub/Distributed_Systems_assignment1/report/report.tex" "report.pdf" "report" 1712538730
+  "/Users/han/Documents/GitHub/Distributed_Systems_assignment1/report/report.tex" 1712538717 16381 91a2fa8ec6e99b7f1a238d1f527f7539 ""
   "/usr/local/texlive/2022/texmf-dist/fonts/enc/dvips/cm-super/cm-super-ts1.enc" 1136849721 2900 1537cc8184ad1792082cd229ecc269f4 ""
   "/usr/local/texlive/2022/texmf-dist/fonts/map/fontname/texfonts.map" 1577235249 3524 cb3e574dea2d1052e39280babc910dc8 ""
   "/usr/local/texlive/2022/texmf-dist/fonts/tfm/jknappen/ec/tcrm1000.tfm" 1136768653 1536 e07581a4bb3136ece9eeb4c3ffab8233 ""
@@ -81,19 +80,21 @@
   "/usr/local/texlive/2022/texmf-var/web2c/pdftex/pdflatex.fmt" 1663911187 2826438 7c2f2e6a5773ad2a9fb2f6849cd96b44 ""
   "/usr/local/texlive/2022/texmf.cnf" 1647878952 577 209b46be99c9075fd74d4c0369380e8c ""
   "images/Message_class.jpg" 1712476570 427830 e7566fb41195547d4291aaa06a75cb45 ""
+  "images/class_diagram.jpg" 1712537913 288339 381e526a3f6968bbc58500decf0b9485 ""
   "images/database_schema.png" 1712482065 17745 213143ad3c18dd08cdbaa1d931e2a4b7 ""
   "images/gui.png" 1712483754 125288 eb9741ff699abd7d855b1bbc33937248 ""
   "images/gui_confirm.png" 1712486646 210148 512190c3508de727f9de5f872f9d13ab ""
   "images/gui_info.png" 1712486646 207629 8daff1cfca344951aba9409350598bdb ""
   "images/gui_notfound.png" 1712486647 172516 829d9e27ff14eaacbabf7b76ce9771b4 ""
+  "images/interaction_diagram.jpg" 1712534892 497407 3176bc84286fd9a33ec82524f9e2dd64 ""
   "images/server_gui_ask_port.png" 1712499606 201710 d7cc9120b5d0bd40c7a8f32ff61d81f3 ""
   "images/server_gui_init.png" 1712499606 103052 e2720a00b4579a354fe233847cbb9410 ""
   "images/server_gui_issue.png" 1712499606 99789 6b7056380086d60d8f2e5a63cdc94f78 ""
   "images/server_gui_running.png" 1712499607 217469 3a1181eb902de492a84a2967fc4a15c2 ""
-  "report.aux" 1712501161 2315 b202bbbddbf38fe8edae764262e81b6b "pdflatex"
-  "report.bbl" 1712499960 12786 1049d9b2fc936437b2342363030b849b "biber report"
-  "report.run.xml" 1712501161 2319 1dbeae9c91c70510d621aca3b4772e83 "pdflatex"
-  "report.tex" 1712501153 15245 248e542806dc37ed92d049f18048897e ""
+  "report.aux" 1712538729 2768 55db741ebb74b44c19308a9effbee6a4 "pdflatex"
+  "report.bbl" 1712535095 12786 1049d9b2fc936437b2342363030b849b "biber report"
+  "report.run.xml" 1712538729 2319 1dbeae9c91c70510d621aca3b4772e83 "pdflatex"
+  "report.tex" 1712538717 16381 91a2fa8ec6e99b7f1a238d1f527f7539 ""
   (generated)
   "report.aux"
   "report.bcf"

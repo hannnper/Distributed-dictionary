@@ -52,6 +52,30 @@ The message is serialised into a string using the \texttt{toString} method of th
 
 As the message format is checked for validity, the server is protected against malformed messages that could cause errors, such as a message with a null value for a required field. The server will respond by sending an error message back to the client, which will then display the error message to the user. This design choice was made to ensure that the server is robust and can handle unexpected input from the client.
 
+\section*{Interactions}
+
+\subsection*{Sequence Diagram}
+
+The interactions between user, client, server and database are shown in the sequence diagram in figure~\ref{fig:interactions}. The user interacts with the client through the graphical user interface, which sends a message to the server. The server processes the message and interacts with the database to perform the requested action. The server then sends a response message back to the client, which displays the result to the user through the GUI.
+
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=0.6\textwidth]{images/interaction_diagram.jpg}
+    \caption{Interactions between user, client, server and database shown in a sequence diagram}
+    \label{fig:interactions}
+\end{figure}
+
+\subsection*{Class Diagram}
+
+The class diagram in figure~\ref{fig:class-diagram} shows the relationships between the classes in the dictionary.
+
+\begin{figure}
+    \centering
+    \includegraphics[width=\textwidth]{images/class_diagram.jpg}
+    \caption{Class diagram showing the relationships between the classes in the dictionary}
+    \label{fig:class-diagram}
+\end{figure} 
+
 \section*{Dictionary Implementation}
 
 The dictionary is stored using a mySQL database for dictionary storage and Java JDBC \cite{jdbc-docs} for interacting with this database \cite{vogella-mysql} within the \texttt{MySqlHandler} class. A mySQL database interfaced by JDBC is more suitable than a file or in-memory object as it allows for scalability of the number of words and meanings stored while maintaining a reasonably fast and efficient lookup. By using a separate database connection for each prepared statement, the server can handle multiple clients concurrently without the risk of data corruption in the database. The mySQL handler class uses prepared statements to prevent SQL injection attacks.
@@ -69,27 +93,27 @@ The database schema consists of a single table, \texttt{dictionary}, with column
 \section*{Graphical User Interface}
 
 \subsection*{Client}
-For ease of usability, the dictionary client has a graphical user interface (GUI) that allows the user to type a word into the text field and select the desired action. The GUI is implemented using Java Swing \cite{swing} and the FlatLaf look and feel to give the GUI a sleek darkmode appearance \cite{flatlaf}. A collection of screenshots displaying some of the various features of the client GUI is shown in Figure \ref{fig:client-gui}.
+For ease of usability, the dictionary client has a graphical user interface (GUI) that allows the user to type a word into the text field and select the desired action. The GUI is implemented using Java Swing \cite{swing} and the FlatLaf look and feel to give the GUI a sleek darkmode appearance \cite{flatlaf}. A collection of screenshots displaying some of the various features of the client GUI is shown in figure~\ref{fig:client-gui}.
 
 \begin{figure}[htbp!]
 \begin{subfigure}{.5\textwidth}
     \centering
-    \includegraphics[width=0.8\linewidth]{images/gui.png}
+    \includegraphics[width=0.9\linewidth]{images/gui.png}
     \caption{Displaying meanings of a word}
 \end{subfigure}%
 \begin{subfigure}{.5\textwidth}
     \centering
-    \includegraphics[width=0.8\linewidth]{images/gui_notfound.png}
+    \includegraphics[width=0.9\linewidth]{images/gui_notfound.png}
     \caption{Error message}
 \end{subfigure}\\
 \begin{subfigure}{.5\textwidth}
     \centering
-    \includegraphics[width=0.8\linewidth]{images/gui_confirm.png}
+    \includegraphics[width=0.9\linewidth]{images/gui_confirm.png}
     \caption{Confirmation}
 \end{subfigure}%
 \begin{subfigure}{.5\textwidth}
     \centering
-    \includegraphics[width=0.8\linewidth]{images/gui_info.png}
+    \includegraphics[width=0.9\linewidth]{images/gui_info.png}
     \caption{Information}
 \end{subfigure}
 \caption{Client GUI}
@@ -97,27 +121,27 @@ For ease of usability, the dictionary client has a graphical user interface (GUI
 \end{figure}
 
 \subsection*{Server}
-The server also has a simple GUI that allows the user to start and stop the server and view a log of events and server-based errors that arise. The server GUI is also implemented using Java Swing \cite{swing} and the FlatLaf look and feel to give a simple lightmode appearance \cite{flatlaf}. The server GUI is shown in Figure \ref{fig:server-gui}.
+The server also has a simple GUI that allows the user to start and stop the server and view a log of events and server-based errors that arise. The server GUI is also implemented using Java Swing \cite{swing} and the FlatLaf look and feel to give a simple lightmode appearance \cite{flatlaf}. The server GUI is shown in figure~\ref{fig:server-gui}.
 
 \begin{figure}[htbp!]
     \begin{subfigure}{.5\textwidth}
         \centering
-        \includegraphics[width=0.8\linewidth]{images/server_gui_init.png}
+        \includegraphics[width=0.9\linewidth]{images/server_gui_init.png}
         \caption{Initial view on launch}
     \end{subfigure}%
     \begin{subfigure}{.5\textwidth}
         \centering
-        \includegraphics[width=0.8\linewidth]{images/server_gui_ask_port.png}
+        \includegraphics[width=0.9\linewidth]{images/server_gui_ask_port.png}
         \caption{Asking for port number}
     \end{subfigure}\\
     \begin{subfigure}{.5\textwidth}
         \centering
-        \includegraphics[width=0.8\linewidth]{images/server_gui_issue.png}
+        \includegraphics[width=0.9\linewidth]{images/server_gui_issue.png}
         \caption{When an issue occurs}
     \end{subfigure}%
     \begin{subfigure}{.5\textwidth}
         \centering
-        \includegraphics[width=0.8\linewidth]{images/server_gui_running.png}
+        \includegraphics[width=0.9\linewidth]{images/server_gui_running.png}
         \caption{While running}
     \end{subfigure}
     \caption{Server GUI}
