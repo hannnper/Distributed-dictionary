@@ -1,5 +1,4 @@
 // Dictionary Server GUI
-// Han Perry 693878
 
 package dictionary;
 

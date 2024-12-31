@@ -1,3 +1,5 @@
+// Dictionary client main class
+
 package dictionary;
 
 import com.formdev.flatlaf.themes.FlatMacDarkLaf;

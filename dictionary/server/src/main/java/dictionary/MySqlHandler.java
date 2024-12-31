@@ -1,5 +1,4 @@
 // Dictionary Server SQL handler class
-// Han Perry 693878
 
 package dictionary;
 
@@ -9,13 +8,15 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import io.github.cdimascio.dotenv.Dotenv;
 
 public class MySqlHandler {
     // Database connection details
-    private static final String MYSQL_USERNAME = "server_user";
-    private static final String MYSQL_PASSWORD = "abcde";
-    private static final String MYSQL_DATABASE = "ds_dictionary";
-    private static final String MYSQL_URL = "jdbc:mysql://localhost:3306/" + MYSQL_DATABASE;
+    private static final Dotenv dotenv = Dotenv.load();
+    private static final String MYSQL_USERNAME = dotenv.get("MYSQL_USERNAME");
+    private static final String MYSQL_PASSWORD = dotenv.get("MYSQL_PASSWORD");
+    private static final String MYSQL_DATABASE = dotenv.get("MYSQL_DATABASE");
+    private static final String MYSQL_URL = dotenv.get("MYSQL_URL"); 
 
     // Database connection
     private Connection connection;

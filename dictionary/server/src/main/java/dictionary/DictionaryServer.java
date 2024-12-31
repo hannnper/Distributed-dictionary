@@ -1,5 +1,4 @@
 // Dictionary server main class
-// Han Perry 693878
 
 package dictionary;
 

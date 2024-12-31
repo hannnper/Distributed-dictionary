@@ -1,5 +1,5 @@
 // Dictionary client connection class
-// Han Perry 693878
+
 package dictionary;
 
 import java.io.DataInputStream;

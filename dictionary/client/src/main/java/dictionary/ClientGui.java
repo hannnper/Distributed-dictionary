@@ -1,5 +1,5 @@
 // Dictionary Client GUI
-// Han Perry 693878
+
 package dictionary;
 
 import java.awt.Component;

@@ -1,5 +1,4 @@
 // Dictionary Server worker runnable class
-// Han Perry 693878
 
 package dictionary;
 import java.io.DataInputStream;
