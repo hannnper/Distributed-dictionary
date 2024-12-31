@@ -42,4 +42,7 @@ replay_pid*
 *.synctex.gz(busy)
 *.synctex.gz
 
+report
 report/*
+.vscode
+.vscode/*
