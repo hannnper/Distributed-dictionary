@@ -24,7 +24,6 @@ The application uses MySQL for data storage and Maven for dependency management 
 - Multi-threaded: Uses a thread pool to handle multiple client requests concurrently.
 - Database Integration: Interacts with a MySQL database for scalable and persistent storage.
 - Logging: Includes server-side logging using log4j2 for monitoring and debugging.
-- Error Handling: Robust error handling for invalid requests and database issues.
 
 ### Shared Module
 - Contains the Message class for structured client-server communication using JSON serialisation.
@@ -80,18 +79,18 @@ This creates runnable `.jar` files for the client and server in their respective
 4. Rename and Copy the JAR Files
 Move and rename the JAR files to the root `dictionary/` directory:
 ```
-cp server/target/server-1.0-SNAPSHOT-jar-with-dependencies.jar server.jar
-cp client/target/client-1.0-SNAPSHOT-jar-with-dependencies.jar client.jar
+cp server/target/server-1.0-SNAPSHOT-jar-with-dependencies.jar DictionaryServer.jar
+cp client/target/client-1.0-SNAPSHOT-jar-with-dependencies.jar DictionaryClient.jar
 ```
 
 5. Run the Server
 ```
-java -jar server.jar
+java -jar DictionaryServer.jar
 ```
 
 6. Run the Client
 ```
-java -jar client.jar <host> <port>
+java -jar DictionaryClient.jar <host> <port>
 ```
 
 ## Screenshots
