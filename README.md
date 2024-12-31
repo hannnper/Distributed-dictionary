@@ -14,11 +14,11 @@ The application uses MySQL for data storage and Maven for dependency management 
 ### Client
 - User-friendly GUI: Built with Java Swing and styled with FlatLaf.
 - Supported Actions:
-- Query word meanings.
-- Add new words.
-- Remove words.
-- Edit and remove specific meanings.
-- Unicode Support: Allows Unicode characters, including emojis.
+    - Query word meanings.
+    - Add new words.
+    - Remove words.
+    - Edit and remove specific meanings.
+    - Unicode Support: Allows Unicode characters, including emojis.
 
 ### Server
 - Multi-threaded: Uses a thread pool to handle multiple client requests concurrently.
