@@ -95,10 +95,10 @@ java -jar DictionaryClient.jar <host> <port>
 
 ## Screenshots
 ### Client
-![Dictionary Client GUI](report/images/gui.png)
+![Dictionary Client GUI](images/gui.png)
 
 ### Server
-![Dictionary Server GUI](report/images/server_gui_running.png)
+![Dictionary Server GUI](images/server_gui_running.png)
 
 ## More info
 For more info please see the report.
