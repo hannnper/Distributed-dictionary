@@ -1,5 +1,8 @@
 *.env
 *.DS_Store
+*.jar
+*.class
+
 
 # maven gitignore from https://github.com/github/gitignore/blob/main/Maven.gitignore
 target/
