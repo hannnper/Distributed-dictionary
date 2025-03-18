@@ -1,0 +1,17 @@
+2024-12-31 16:51:02 INFO  WorkerRunnable:41 - IP: /127.0.0.1:63736, command: query, word: apple
+2024-12-31 16:53:09 INFO  WorkerRunnable:41 - IP: /127.0.0.1:63769, command: query, word: blah
+2024-12-31 16:54:52 INFO  WorkerRunnable:41 - IP: /127.0.0.1:63811, command: query, word: apple
+2024-12-31 16:55:04 INFO  WorkerRunnable:41 - IP: /127.0.0.1:63818, command: query, word: banana
+2024-12-31 16:55:10 INFO  WorkerRunnable:41 - IP: /127.0.0.1:63821, command: query, word: blah
+2024-12-31 16:55:37 INFO  WorkerRunnable:41 - IP: /127.0.0.1:63824, command: add, word: blue
+2024-12-31 16:55:42 INFO  WorkerRunnable:41 - IP: /127.0.0.1:63834, command: query, word: blue
+2024-12-31 16:55:47 INFO  WorkerRunnable:41 - IP: /127.0.0.1:63836, command: query, word: yellow
+2024-12-31 16:55:57 INFO  WorkerRunnable:41 - IP: /127.0.0.1:63841, command: remove-word, word: yellow
+2024-12-31 16:56:06 INFO  WorkerRunnable:41 - IP: /127.0.0.1:63845, command: remove-word, word: green
+2024-12-31 16:56:09 INFO  WorkerRunnable:41 - IP: /127.0.0.1:63851, command: query, word: green
+2024-12-31 16:56:17 INFO  WorkerRunnable:41 - IP: /127.0.0.1:63854, command: query, word: apple
+2024-12-31 16:56:26 INFO  WorkerRunnable:41 - IP: /127.0.0.1:63856, command: remove-meaning, word: apple
+2024-12-31 16:56:44 INFO  WorkerRunnable:41 - IP: /127.0.0.1:63864, command: update, word: apple
+2024-12-31 16:57:36 INFO  WorkerRunnable:41 - IP: /127.0.0.1:63877, command: query, word: apple
+2024-12-31 16:57:48 INFO  WorkerRunnable:41 - IP: /127.0.0.1:63883, command: remove-meaning, word: apple
+2024-12-31 16:57:52 INFO  WorkerRunnable:41 - IP: /127.0.0.1:63886, command: query, word: apple
